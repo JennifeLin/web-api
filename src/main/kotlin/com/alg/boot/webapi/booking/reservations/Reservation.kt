@@ -27,21 +27,4 @@ class Reservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null
-
-    constructor() {}
-    constructor(
-        id: Long?,
-        locator: String?,
-        turn: String?,
-        person: Long?,
-        date: Date?,
-        restaurant: Restaurant?
-    ) : super() {
-        this.id = id
-        this.locator = locator
-        this.turn = turn
-        this.person = person
-        this.date = date
-        this.restaurant = restaurant
-    }
 }

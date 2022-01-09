@@ -17,11 +17,4 @@ class Turn {
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null
-
-    protected constructor() : super() {}
-    constructor(id: Long?, name: String?, restaurant: Restaurant?) : super() {
-        this.id = id
-        this.name = name
-        this.restaurant = restaurant
-    }
 }

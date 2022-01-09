@@ -3,7 +3,6 @@ package com.alg.boot.webapi.booking.restaurants.data
 import com.alg.boot.webapi.booking.turns.data.TurnJson
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.*
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class RestaurantDetailJson {

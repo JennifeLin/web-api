@@ -1,8 +1,8 @@
 package com.alg.boot.webapi.handlers.exceptions
 
 open class GeneralException : Exception {
-    val status: String
-    val code: Int
+    private val status: String
+    private val code: Int
     private val errors: MutableList<Error> = ArrayList()
 
     constructor(status: String, code: Int, message: String?) : super(message) {
@@ -14,10 +14,6 @@ open class GeneralException : Exception {
         this.status = status
         this.code = code
         this.errors.addAll(errors!!)
-    }
-
-    fun getErrors(): List<Error> {
-        return errors
     }
 
     companion object {

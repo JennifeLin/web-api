@@ -21,12 +21,4 @@ class Board {
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null
-
-    protected constructor() : super() {}
-    constructor(id: Long?, capacity: Long?, number: Long?, restaurant: Restaurant?) : super() {
-        this.id = id
-        this.capacity = capacity
-        this.number = number
-        this.restaurant = restaurant
-    }
 }

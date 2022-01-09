@@ -22,7 +22,7 @@ class SpringDocConfiguration {
     fun webApiDoc(): OpenAPI? {
         val license: License = License()
             .name("Apache 2.0")
-            .url("http://springdoc.org")
+            .url("https://springdoc.org")
         val info: Info = Info()
             .title("Web API")
             .description("Backend para los proyectos profesionales")

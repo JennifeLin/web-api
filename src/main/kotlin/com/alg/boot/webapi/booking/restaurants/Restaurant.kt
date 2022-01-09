@@ -33,25 +33,4 @@ class Restaurant {
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
     var turns: List<Turn> = emptyList()
-
-    protected constructor() : super() {}
-    constructor(
-        id: Long?, name: String?, address: String?, description: String?, image: String?,
-        reservations: List<Reservation>?, boards: List<Board>?, turns: List<Turn>?
-    ) : super() {
-        this.id = id
-        this.name = name
-        this.address = address
-        this.description = description
-        this.image = image
-        if (reservations != null) {
-            this.reservations = reservations
-        }
-        if (boards != null) {
-            this.boards = boards
-        }
-        if (turns != null) {
-            this.turns = turns
-        }
-    }
 }

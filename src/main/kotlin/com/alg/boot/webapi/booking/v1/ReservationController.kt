@@ -5,13 +5,11 @@ import com.alg.boot.webapi.booking.reservations.services.ReservationService
 import com.alg.boot.webapi.handlers.exceptions.GeneralException
 import com.alg.boot.webapi.handlers.responses.GeneralResponse
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RequestMapping("/api/v1/reservations")
 class ReservationController(
     private val reservationService: ReservationService

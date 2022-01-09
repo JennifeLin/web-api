@@ -4,12 +4,10 @@ import com.alg.boot.webapi.booking.reservations.services.ReservationCancellation
 import com.alg.boot.webapi.handlers.exceptions.GeneralException
 import com.alg.boot.webapi.handlers.responses.GeneralResponse
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RequestMapping("/api/v1/reservations")
 class ReservationCancellationController(
     private val reservationCancellationService: ReservationCancellationService

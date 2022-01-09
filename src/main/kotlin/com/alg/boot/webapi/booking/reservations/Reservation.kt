@@ -22,7 +22,7 @@ class Reservation {
     var person: Long? = null
 
     @Column(name = "DATE")
-    private var date: Date? = null
+    var date: Date? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
@@ -43,13 +43,5 @@ class Reservation {
         this.person = person
         this.date = date
         this.restaurant = restaurant
-    }
-
-    fun getDate(): Date? {
-        return date
-    }
-
-    fun setDate(date: Date?) {
-        this.date = date
     }
 }

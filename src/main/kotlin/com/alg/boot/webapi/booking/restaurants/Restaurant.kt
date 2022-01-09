@@ -26,13 +26,13 @@ class Restaurant {
     var image: String? = null
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private var reservations: List<Reservation>? = null
+    var reservations: List<Reservation> = emptyList()
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var boards: List<Board>? = null
+    var boards: List<Board> = emptyList()
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private var turns: List<Turn>? = null
+    var turns: List<Turn> = emptyList()
 
     protected constructor() : super() {}
     constructor(
@@ -44,24 +44,14 @@ class Restaurant {
         this.address = address
         this.description = description
         this.image = image
-        this.reservations = reservations
-        this.boards = boards
-        this.turns = turns
-    }
-
-    fun getReservations(): List<Reservation>? {
-        return reservations
-    }
-
-    fun setReservations(reservations: List<Reservation>?) {
-        this.reservations = reservations
-    }
-
-    fun getTurns(): List<Turn>? {
-        return turns
-    }
-
-    fun setTurns(turns: List<Turn>?) {
-        this.turns = turns
+        if (reservations != null) {
+            this.reservations = reservations
+        }
+        if (boards != null) {
+            this.boards = boards
+        }
+        if (turns != null) {
+            this.turns = turns
+        }
     }
 }

@@ -6,21 +6,15 @@ import java.util.*
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class ReservationCreateJson {
-    @JsonProperty("id")
-    var id: Long? = null
-
-    @JsonProperty("locator")
-    var locator: String? = null
-
-    @JsonProperty("turn")
-    var turn: String? = null
-
-    @JsonProperty("person")
-    var person: Long? = null
-
-    @JsonProperty("date")
-    var date: Date? = null
+    @JsonProperty("turnId")
+    val turnId: Long? = null
 
     @JsonProperty("restaurantId")
-    var restaurantId: Long? = null
+    val restaurantId: Long? = null
+
+    @JsonProperty("person")
+    val person: Long? = null
+
+    @JsonProperty("date")
+    val date: Date? = null
 }

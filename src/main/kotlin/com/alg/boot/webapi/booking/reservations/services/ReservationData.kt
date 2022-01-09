@@ -54,18 +54,6 @@ class ReservationData(
         return locator
     }
 
-    override fun cancelReservation(locator: String): String {
-        reservationRepository.findByLocator(locator)
-            .orElseThrow { NotFoundException("DATA_404", "Reservation with locator $locator not found") }
-        try {
-            reservationRepository.deleteByLocator(locator)
-        } catch (e: Exception) {
-            log.error("Error while deleting reservation: ${e.message}")
-            throw ServerErrorException("DATA_500", "Error while deleting reservation")
-        }
-        return "LOCATOR_${locator}_CANCELED"
-    }
-
     private fun getLocator(restaurant: Restaurant?, reservation: ReservationCreateJson): String {
         return "${restaurant?.name}_${reservation.turnId}"
     }

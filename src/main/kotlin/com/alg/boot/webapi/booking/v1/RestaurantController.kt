@@ -1,4 +1,4 @@
-package com.alg.boot.webapi.booking.restaurants.v1
+package com.alg.boot.webapi.booking.v1
 
 import com.alg.boot.webapi.booking.restaurants.data.RestaurantDetailJson
 import com.alg.boot.webapi.booking.restaurants.data.RestaurantJson
@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/restaurants")
-class RestaurantController(private val restaurantService: RestaurantService) {
+class RestaurantController(
+    private val restaurantService: RestaurantService
+) {
     @GetMapping
     fun getRestaurants(): GeneralResponse<List<RestaurantJson>> =
         GeneralResponse("Success", HttpStatus.OK.value(), "OK", restaurantService.getRestaurants())

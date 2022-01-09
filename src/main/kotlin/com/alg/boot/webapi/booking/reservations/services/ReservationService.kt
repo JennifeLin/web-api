@@ -9,6 +9,4 @@ interface ReservationService {
     fun getReservation(id: Long): ReservationJson
     @Throws(GeneralException::class)
     fun createReservation(reservation: ReservationCreateJson): String
-    @Throws(GeneralException::class)
-    fun cancelReservation(locator: String): String
 }

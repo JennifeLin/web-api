@@ -5,22 +5,22 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.*
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class ReservationJson {
+class ReservationJson(
     @JsonProperty("id")
-    var id: Long? = null
+    var id: Long? = null,
 
     @JsonProperty("locator")
-    var locator: String? = null
+    var locator: String? = null,
 
     @JsonProperty("turn")
-    var turn: String? = null
+    var turn: String? = null,
 
     @JsonProperty("person")
-    var person: Long? = null
+    var person: Long? = null,
 
     @JsonProperty("date")
-    var date: Date? = null
+    var date: Date? = null,
 
     @JsonProperty("restaurantId")
     var restaurantId: Long? = null
-}
+)

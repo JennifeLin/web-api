@@ -7,30 +7,30 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "restaurant")
-class Restaurant {
+class Restaurant(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
-    var id: Long? = null
+    var id: Long? = null,
 
     @Column(name = "NAME")
-    var name: String? = null
+    var name: String? = null,
 
     @Column(name = "ADDRESS")
-    var address: String? = null
+    var address: String? = null,
 
     @Column(name = "DESCRIPTION")
-    var description: String? = null
+    var description: String? = null,
 
     @Column(name = "IMAGE")
-    var image: String? = null
+    var image: String? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var reservations: List<Reservation> = emptyList()
+    var reservations: List<Reservation> = emptyList(),
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var boards: List<Board> = emptyList()
+    var boards: List<Board> = emptyList(),
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var turns: List<Turn> = emptyList()
-}
+    var turns: List<Turn> = emptyList(),
+)

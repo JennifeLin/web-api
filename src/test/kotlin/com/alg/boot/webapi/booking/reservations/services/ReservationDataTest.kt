@@ -76,8 +76,8 @@ internal class ReservationDataTest {
     @Test
     @Throws(GeneralException::class)
     fun createReservationTest_TurnNameIsNull_RestaurantIdIsNull() {
-        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN.apply { name = null }))
-        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT.apply { id = null }))
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN_WITHOUT_TURN_NAME))
+        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT_WITHOUT_ID))
         Assertions.assertThrows(GeneralException::class.java) {
             reservationData.createReservation(RESERVATION_CREATE_JSON)
         }
@@ -95,11 +95,26 @@ internal class ReservationDataTest {
             boards = emptyList(),
             turns = emptyList(),
         )
+        private val RESTAURANT_WITHOUT_ID = Restaurant(
+            id = null,
+            name = "Restaurant",
+            address = "Restaurant address",
+            description = "Restaurant description",
+            image = "Restaurant image",
+            reservations = emptyList(),
+            boards = emptyList(),
+            turns = emptyList(),
+        )
         private const val TURN_ID = 1L
         private const val TURN_NAME = "Turn1_11-20"
         private val TURN = Turn(
             id = TURN_ID,
             name = TURN_NAME,
+            restaurant = RESTAURANT,
+        )
+        private val TURN_WITHOUT_TURN_NAME = Turn(
+            id = TURN_ID,
+            name = null,
             restaurant = RESTAURANT,
         )
         private val RESERVATION_CREATE_JSON = ReservationCreateJson(

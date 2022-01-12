@@ -25,7 +25,7 @@ internal class RestaurantControllerTest {
     @BeforeEach
     @Throws(GeneralException::class)
     fun setUp() {
-        MockitoAnnotations.openMocks(this)
+        MockitoAnnotations.initMocks(this)
         Mockito.`when`(restaurantService.getRestaurant(1)).thenReturn(RESTAURANT_DETAIL_JSON)
         Mockito.`when`(restaurantService.getRestaurants()).thenReturn(RESTAURANT_JSON_LIST)
     }

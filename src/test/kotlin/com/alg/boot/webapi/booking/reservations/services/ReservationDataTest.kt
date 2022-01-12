@@ -1,0 +1,120 @@
+package com.alg.boot.webapi.booking.reservations.services
+
+import com.alg.boot.webapi.booking.reservations.Reservation
+import com.alg.boot.webapi.booking.reservations.ReservationRepository
+import com.alg.boot.webapi.booking.reservations.data.ReservationCreateJson
+import com.alg.boot.webapi.booking.restaurants.Restaurant
+import com.alg.boot.webapi.booking.restaurants.RestaurantRepository
+import com.alg.boot.webapi.booking.turns.Turn
+import com.alg.boot.webapi.booking.turns.TurnRepository
+import com.alg.boot.webapi.handlers.exceptions.GeneralException
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
+import java.util.*
+
+internal class ReservationDataTest {
+    @Mock
+    private lateinit var reservationRepository: ReservationRepository
+    @Mock
+    private lateinit var restaurantRepository: RestaurantRepository
+    @Mock
+    private lateinit var turnRepository: TurnRepository
+    @InjectMocks
+    private lateinit var reservationData: ReservationData
+
+    @BeforeEach
+    @Throws(GeneralException::class)
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
+    }
+
+    @Test
+    @Throws(GeneralException::class)
+    fun createReservationTest() {
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN))
+        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT))
+        Mockito.`when`(reservationRepository.findByTurnAndRestaurantId(TURN_NAME, RESTAURANT_ID)).thenReturn(Optional.empty())
+        Mockito.`when`(reservationRepository.save(Mockito.any(Reservation::class.java))).thenReturn(Reservation())
+        reservationData.createReservation(RESERVATION_CREATE_JSON)
+    }
+
+    @Test
+    @Throws(GeneralException::class)
+    fun createReservationTest_TurnNotFound() {
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.empty())
+        Assertions.assertThrows(GeneralException::class.java) {
+            reservationData.createReservation(RESERVATION_CREATE_JSON)
+        }
+    }
+
+    @Test
+    @Throws(GeneralException::class)
+    fun createReservationTest_RestaurantNotFound() {
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN))
+        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.empty())
+        Assertions.assertThrows(GeneralException::class.java) {
+            reservationData.createReservation(RESERVATION_CREATE_JSON)
+        }
+    }
+
+    @Test
+    @Throws(GeneralException::class)
+    fun createReservationTest_ReservationAlreadyExists() {
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN))
+        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT))
+        Mockito.`when`(reservationRepository.findByTurnAndRestaurantId(TURN_NAME, RESTAURANT_ID)).thenReturn(Optional.of(RESERVATION))
+        Assertions.assertThrows(GeneralException::class.java) {
+            reservationData.createReservation(RESERVATION_CREATE_JSON)
+        }
+    }
+
+    @Test
+    @Throws(GeneralException::class)
+    fun createReservationTest_TurnNameIsNull_RestaurantIdIsNull() {
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN.apply { name = null }))
+        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT.apply { id = null }))
+        Assertions.assertThrows(GeneralException::class.java) {
+            reservationData.createReservation(RESERVATION_CREATE_JSON)
+        }
+    }
+
+    companion object {
+        private const val RESTAURANT_ID = 1L
+        private val RESTAURANT = Restaurant(
+            id = RESTAURANT_ID,
+            name = "Restaurant",
+            address = "Restaurant address",
+            description = "Restaurant description",
+            image = "Restaurant image",
+            reservations = emptyList(),
+            boards = emptyList(),
+            turns = emptyList(),
+        )
+        private const val TURN_ID = 1L
+        private const val TURN_NAME = "Turn1_11-20"
+        private val TURN = Turn(
+            id = TURN_ID,
+            name = TURN_NAME,
+            restaurant = RESTAURANT,
+        )
+        private val RESERVATION_CREATE_JSON = ReservationCreateJson(
+            turnId = 1L,
+            restaurantId = RESTAURANT_ID,
+            person = 2L,
+            date = Date()
+        )
+        private val RESERVATION = Reservation(
+            id = 1L,
+            turn = TURN_NAME,
+            locator = "",
+            restaurant = RESTAURANT,
+            person = 2L,
+            date = Date(),
+        )
+    }
+}

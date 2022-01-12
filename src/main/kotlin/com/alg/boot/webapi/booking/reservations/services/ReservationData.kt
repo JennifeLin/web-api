@@ -38,12 +38,20 @@ class ReservationData(
             restaurantRepository.findById(it)
                 .orElseThrow { NotFoundException("DATA_404", "Restaurant with id ${reservation.restaurantId} not found") }
         }
+        val turnName = turn?.name
+        val restaurantId = restaurant?.id
+        if (turnName == null || restaurantId == null) {
+            throw ServerErrorException("DATA_500", "Turn or restaurant not found")
+        }
+        if(reservationRepository.findByTurnAndRestaurantId(turnName, restaurantId).isPresent) {
+            throw ServerErrorException("DATA_409", "Reservation already exists")
+        }
         val reservationEntity = Reservation()
         val locator = getLocator(restaurant, reservation)
         reservationEntity.locator = locator
         reservationEntity.person = reservation.person
         reservationEntity.date = reservation.date
-        reservationEntity.turn = turn?.name
+        reservationEntity.turn = turn.name
         reservationEntity.restaurant = restaurant
         try {
             reservationRepository.save(reservationEntity)

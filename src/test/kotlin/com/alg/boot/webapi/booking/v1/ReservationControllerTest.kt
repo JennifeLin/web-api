@@ -23,7 +23,7 @@ internal class ReservationControllerTest {
     @BeforeEach
     @Throws(GeneralException::class)
     fun setUp() {
-        MockitoAnnotations.openMocks(this)
+        MockitoAnnotations.initMocks(this)
         Mockito.`when`(reservationService.createReservation(RESERVATION_CREATE_JSON)).thenReturn(LOCATOR_RESPONSE)
         Mockito.`when`(reservationService.getReservation(RESERVATION_ID)).thenReturn(RESERVATION_JSON)
     }

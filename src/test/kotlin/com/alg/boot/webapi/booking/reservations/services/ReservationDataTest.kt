@@ -35,6 +35,14 @@ internal class ReservationDataTest {
 
     @Test
     @Throws(GeneralException::class)
+    fun getReservationTest() {
+        Mockito.`when`(reservationRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESERVATION))
+        val result = reservationData.getReservation(RESTAURANT_ID)
+        Assertions.assertNotNull(result)
+    }
+
+    @Test
+    @Throws(GeneralException::class)
     fun createReservationTest() {
         Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN))
         Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT))
@@ -140,7 +148,7 @@ internal class ReservationDataTest {
         private val RESERVATION = Reservation(
             id = 1L,
             turn = TURN_NAME,
-            locator = "",
+            locator = "${RESTAURANT.name}_${TURN.id}",
             restaurant = RESTAURANT,
             person = 2L,
             date = Date(),

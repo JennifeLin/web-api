@@ -83,6 +83,20 @@ internal class ReservationDataTest {
         }
     }
 
+    @Test
+    @Throws(GeneralException::class)
+    fun createReservationTest_Internal_Server_Error() {
+        Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN))
+        Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT))
+        Mockito.`when`(reservationRepository.findByTurnAndRestaurantId(TURN_NAME, RESTAURANT_ID)).thenReturn(Optional.empty())
+        Mockito.doThrow(Exception::class.java).`when`(reservationRepository).save(any(Reservation::class.java))
+        Assertions.assertThrows(GeneralException::class.java) {
+            reservationData.createReservation(RESERVATION_CREATE_JSON)
+        }
+    }
+
+    private fun <T> any(type: Class<T>): T = Mockito.any(type)
+
     companion object {
         private const val RESTAURANT_ID = 1L
         private val RESTAURANT = Restaurant(

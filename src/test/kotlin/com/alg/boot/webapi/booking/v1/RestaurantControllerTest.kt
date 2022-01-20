@@ -35,10 +35,12 @@ internal class RestaurantControllerTest {
     @Throws(GeneralException::class)
     fun getRestaurantTest() {
         val response: GeneralResponse<RestaurantDetailJson> = restaurantController.getRestaurant(RESTAURANT_ID)
-        Assertions.assertEquals(SUCCESS_STATUS, response.status)
-        Assertions.assertEquals(SUCCESS_CODE, response.code)
-        Assertions.assertEquals(SUCCESS_MESSAGE, response.message)
-        Assertions.assertEquals(RESTAURANT_DETAIL_JSON, response.data)
+        Assertions.assertAll(
+            { Assertions.assertEquals(SUCCESS_STATUS, response.status) },
+            { Assertions.assertEquals(SUCCESS_CODE, response.code) },
+            { Assertions.assertEquals(SUCCESS_MESSAGE, response.message) },
+            {Assertions.assertEquals(RESTAURANT_DETAIL_JSON, response.data) }
+        )
     }
 
     @Test
@@ -46,10 +48,12 @@ internal class RestaurantControllerTest {
     @Throws(GeneralException::class)
     fun getRestaurantsTest() {
         val response: GeneralResponse<List<RestaurantJson>> = restaurantController.getRestaurants()
-        Assertions.assertEquals(SUCCESS_STATUS, response.status)
-        Assertions.assertEquals(SUCCESS_CODE, response.code)
-        Assertions.assertEquals(SUCCESS_MESSAGE, response.message)
-        Assertions.assertEquals(RESTAURANT_JSON_LIST, response.data)
+        Assertions.assertAll(
+            { Assertions.assertEquals(SUCCESS_STATUS, response.status) },
+            { Assertions.assertEquals(SUCCESS_CODE, response.code) },
+            { Assertions.assertEquals(SUCCESS_MESSAGE, response.message) },
+            { Assertions.assertEquals(RESTAURANT_JSON_LIST, response.data) }
+        )
     }
 
     companion object {

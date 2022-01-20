@@ -17,6 +17,9 @@ class Calculator {
     }
 
     fun divide(a: Int, b: Int): Int {
+        if (b == 0) {
+            throw IllegalArgumentException("Division by zero")
+        }
         return a / b
     }
 

@@ -38,8 +38,21 @@ internal class CalculatorTest {
     }
 
     @Test
+    fun divideTestWithFirstParameterWithZero() {
+        val result = calculator.divide(0, 2)
+        Assertions.assertEquals(0, result)
+    }
+
+    @Test
+    fun divideTestWithZeroInBothParameters() {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            calculator.divide(0, 0)
+        }
+    }
+
+    @Test
     fun divideByZeroTest() {
-        Assertions.assertThrows(ArithmeticException::class.java) {
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
             calculator.divide(50, 0)
         }
     }

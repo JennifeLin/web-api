@@ -1,5 +1,7 @@
 package com.alg.boot.webapi.playground
 
+import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -73,5 +75,12 @@ class Calculator {
         }
         val s = a.toString()
         return s == s.reversed()
+    }
+
+    fun convertCelsiusToFahrenheit(a: BigDecimal): BigDecimal {
+        return a.times(BigDecimal.valueOf(9))
+            .divide(BigDecimal.valueOf(5))
+            .plus(BigDecimal.valueOf(32))
+            .setScale(1, RoundingMode.CEILING)
     }
 }

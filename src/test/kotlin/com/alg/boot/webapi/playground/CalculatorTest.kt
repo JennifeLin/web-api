@@ -2,7 +2,9 @@ package com.alg.boot.webapi.playground
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 
 internal class CalculatorTest {
 
@@ -223,5 +225,32 @@ internal class CalculatorTest {
     fun isPalindromeOfTwelveTest() {
         val result = calculator.isPalindrome(12)
         Assertions.assertEquals(false, result)
+    }
+
+    @Nested
+    inner class TemperatureConversionTest {
+        @Test
+        fun convertCelsiusToFahrenheitTest() {
+            val result = calculator.convertCelsiusToFahrenheit(BigDecimal(100.0))
+            Assertions.assertEquals(212.0, result.toDouble())
+        }
+
+        @Test
+        fun convertCelsiusToFahrenheitOfZeroTest() {
+            val result = calculator.convertCelsiusToFahrenheit(BigDecimal.ZERO)
+            Assertions.assertEquals(32.0, result.toDouble())
+        }
+
+        @Test
+        fun convertCelsiusToFahrenheitOfNegativeNumberTest() {
+            val result = calculator.convertCelsiusToFahrenheit(BigDecimal(-10.5))
+            Assertions.assertEquals(13.1, result.toDouble())
+        }
+
+        @Test
+        fun convertCelsiusToFahrenheitOfNegativeNumberRoundCeilTest() {
+            val result = calculator.convertCelsiusToFahrenheit(BigDecimal(-10.3))
+            Assertions.assertEquals(13.5, result.toDouble())
+        }
     }
 }

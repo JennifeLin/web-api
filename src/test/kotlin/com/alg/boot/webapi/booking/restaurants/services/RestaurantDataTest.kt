@@ -22,7 +22,7 @@ internal class RestaurantDataTest {
     @BeforeEach
     @Throws(GeneralException::class)
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
     }
 
     @Test

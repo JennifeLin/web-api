@@ -15,6 +15,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.exceptions.base.MockitoException
 import java.util.*
 
 internal class ReservationDataTest {
@@ -30,7 +31,7 @@ internal class ReservationDataTest {
     @BeforeEach
     @Throws(GeneralException::class)
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
     }
 
     @Test
@@ -97,7 +98,7 @@ internal class ReservationDataTest {
         Mockito.`when`(turnRepository.findById(TURN_ID)).thenReturn(Optional.of(TURN))
         Mockito.`when`(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.of(RESTAURANT))
         Mockito.`when`(reservationRepository.findByTurnAndRestaurantId(TURN_NAME, RESTAURANT_ID)).thenReturn(Optional.empty())
-        Mockito.doThrow(Exception::class.java).`when`(reservationRepository).save(any(Reservation::class.java))
+        Mockito.doThrow(MockitoException::class.java).`when`(reservationRepository).save(any(Reservation::class.java))
         Assertions.assertThrows(GeneralException::class.java) {
             reservationData.createReservation(RESERVATION_CREATE_JSON)
         }

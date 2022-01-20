@@ -11,6 +11,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.exceptions.base.MockitoException
 import java.util.*
 
 internal class ReservationCancellationDataTest {
@@ -23,7 +24,7 @@ internal class ReservationCancellationDataTest {
     @BeforeEach
     @Throws(GeneralException::class)
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
     }
 
     @Test
@@ -48,7 +49,7 @@ internal class ReservationCancellationDataTest {
     @Throws(GeneralException::class)
     fun cancelReservationTest_InternalServerError() {
         Mockito.`when`(reservationRepository.findByLocator(LOCATOR)).thenReturn(Optional.of(RESERVATION))
-        Mockito.doThrow(GeneralException::class.java).`when`(reservationRepository).deleteByLocator(LOCATOR)
+        Mockito.doThrow(MockitoException::class.java).`when`(reservationRepository).deleteByLocator(LOCATOR)
         Assertions.assertThrows(GeneralException::class.java) {
             reservationCancellationData.cancelReservation(LOCATOR)
         }

@@ -7,6 +7,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.stubbing.Answer
 
 class AddTestMockValidNumberTest {
     @InjectMocks
@@ -53,5 +54,13 @@ class AddTestMockValidNumberTest {
             { Assertions.assertEquals(false, validNumber.check(-1)) },
             { Assertions.assertEquals(false, validNumber.check(10)) },
         )
+    }
+
+    @Test
+    fun squareDoubleToIntAnswersTest() {
+        val value = 7.7777
+        val answer: Answer<Int> = Answer { 7 }
+        Mockito.`when`(validNumber!!.doubleToInt(value)).thenAnswer(answer)
+        Assertions.assertEquals(14, add!!.squareDoubleToInt(value))
     }
 }

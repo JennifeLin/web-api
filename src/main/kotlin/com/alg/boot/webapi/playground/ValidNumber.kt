@@ -10,4 +10,12 @@ class ValidNumber {
             false
         }
     }
+
+    fun doubleToInt(d: Any): Int {
+        return if (d is Double) {
+            d.toInt()
+        } else {
+            0
+        }
+    }
 }

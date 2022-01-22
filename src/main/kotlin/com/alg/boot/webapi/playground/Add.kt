@@ -8,4 +8,8 @@ class Add(private var validNumber: ValidNumber) {
             throw IllegalArgumentException("Invalid number")
         }
     }
+
+    fun squareDoubleToInt(a: Double): Int {
+        return validNumber.doubleToInt(a) * 2
+    }
 }

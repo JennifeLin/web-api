@@ -1,9 +1,6 @@
 package com.alg.boot.webapi.playground
 
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 
 internal class ValidNumberTest {
     private var validNumber: ValidNumber? = null
@@ -29,5 +26,18 @@ internal class ValidNumberTest {
             {Assertions.assertEquals(false, validNumber!!.check("Int.MAX_VALUE"))},
             {Assertions.assertEquals(false, validNumber!!.check(5.5))},
         )
+    }
+
+    @Nested
+    inner class DoubleToIntTests {
+        @Test
+        fun doubleToIntTest() {
+            Assertions.assertEquals(3, validNumber!!.doubleToInt(3.9999))
+        }
+
+        @Test
+        fun doubleToIntErrorTest() {
+            Assertions.assertEquals(0, validNumber!!.doubleToInt("3.9999"))
+        }
     }
 }

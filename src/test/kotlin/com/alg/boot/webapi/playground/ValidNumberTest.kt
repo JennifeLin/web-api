@@ -19,7 +19,7 @@ internal class ValidNumberTest {
     }
 
     @Test
-    fun testValidNumber() {
+    fun validNumberTest() {
         Assertions.assertAll(
             {Assertions.assertEquals(true, validNumber!!.check(0))},
             {Assertions.assertEquals(true, validNumber!!.check(5))},

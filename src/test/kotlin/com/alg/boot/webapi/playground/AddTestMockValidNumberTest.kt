@@ -3,10 +3,7 @@ package com.alg.boot.webapi.playground
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
+import org.mockito.*
 import org.mockito.stubbing.Answer
 
 class AddTestMockValidNumberTest {
@@ -30,6 +27,16 @@ class AddTestMockValidNumberTest {
             { Assertions.assertEquals(true, validNumber.check(0)) },
             { Assertions.assertEquals(true, validNumber.check(9)) },
         )
+    }
+
+    @Test
+    fun addBDDTest() {
+        // Given
+        BDDMockito.given(validNumber!!.check(BDDMockito.anyInt())).willReturn(true)
+        // When
+        add!!.add(3, 2)
+        // Then
+        Assertions.assertEquals(true, validNumber.check(3))
     }
 
     @Test

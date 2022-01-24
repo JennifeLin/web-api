@@ -121,6 +121,16 @@ class AddTestMockValidNumberTest {
             Mockito.verify(mockList).add("3")
             Assertions.assertEquals(0, mockList.size)
         }
+
+        @Test
+        fun mockGivenTest() {
+            mockList.add("1")
+            mockList.add("2")
+            Mockito.verify(mockList).add("1")
+            Mockito.verify(mockList).add("2")
+            BDDMockito.given(mockList.size).willReturn(2)
+            Assertions.assertEquals(2, mockList.size)
+        }
     }
 
 }

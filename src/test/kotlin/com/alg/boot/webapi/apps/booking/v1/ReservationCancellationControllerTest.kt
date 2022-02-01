@@ -36,7 +36,7 @@ internal class ReservationCancellationControllerTest {
     companion object {
         private const val LOCATOR = "LOCATOR 1_1"
         private const val LOCATOR_RESPONSE = "LOCATOR_${LOCATOR}_CANCELED"
-        private const val SUCCESS_STATUS: String = "Success"
+        private const val SUCCESS_STATUS: String = "success"
         private const val SUCCESS_CODE: Int = 200
         private const val SUCCESS_MESSAGE: String = "OK"
     }

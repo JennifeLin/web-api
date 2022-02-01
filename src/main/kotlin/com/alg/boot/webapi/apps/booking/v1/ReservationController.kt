@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-@CrossOrigin(origins = ["http://localhost:4200"])
+@CrossOrigin(origins = ["http://localhost:3000"])
 @RequestMapping("/api/v1/reservations")
 class ReservationController(
     private val reservationService: ReservationService
@@ -18,14 +18,14 @@ class ReservationController(
     @Throws(GeneralException::class)
     @GetMapping("/{id}")
     fun getReservation(@PathVariable id: Long): GeneralResponse<ReservationJson> {
-        return GeneralResponse("Success", HttpStatus.OK.value(), "OK",
+        return GeneralResponse("success", HttpStatus.OK.value(), "OK",
                 reservationService.getReservation(id))
     }
 
     @Throws(GeneralException::class)
     @PostMapping
     fun create(@RequestBody @Valid reservationCreateJson: ReservationCreateJson): GeneralResponse<String> {
-        return GeneralResponse("Success", HttpStatus.OK.value(), "OK",
+        return GeneralResponse("success", HttpStatus.OK.value(), "OK",
             reservationService.createReservation(reservationCreateJson)
         )
     }

@@ -52,7 +52,7 @@ internal class ReservationControllerTest {
     companion object {
         private const val RESERVATION_ID: Long = 1L
         private const val RESTAURANT_ID: Long = 1L
-        private const val SUCCESS_STATUS: String = "Success"
+        private const val SUCCESS_STATUS: String = "success"
         private const val SUCCESS_CODE: Int = 200
         private const val SUCCESS_MESSAGE: String = "OK"
         private const val LOCATOR_RESPONSE: String = "LOCATOR"

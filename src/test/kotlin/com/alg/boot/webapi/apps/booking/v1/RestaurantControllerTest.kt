@@ -58,7 +58,7 @@ internal class RestaurantControllerTest {
 
     companion object {
         private const val RESTAURANT_ID: Long = 1L
-        private const val SUCCESS_STATUS: String = "Success"
+        private const val SUCCESS_STATUS: String = "success"
         private const val SUCCESS_CODE: Int = 200
         private const val SUCCESS_MESSAGE: String = "OK"
         private val TURN_LIST_JSON: List<TurnJson> = listOf(

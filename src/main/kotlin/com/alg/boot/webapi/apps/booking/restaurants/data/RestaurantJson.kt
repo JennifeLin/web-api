@@ -8,6 +8,9 @@ class RestaurantJson(
     @JsonProperty("id")
     var id: Long? = null,
 
+    @JsonProperty("name")
+    var name: String? = null,
+
     @JsonProperty("address")
     var address: String? = null,
 

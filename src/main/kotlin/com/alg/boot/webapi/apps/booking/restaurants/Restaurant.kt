@@ -6,7 +6,7 @@ import com.alg.boot.webapi.apps.booking.turns.Turn
 import javax.persistence.*
 
 @Entity
-@Table(name = "restaurant")
+@Table(name = "restaurants")
 class Restaurant(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,21 +3,12 @@ package com.alg.boot.webapi.config
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.info.License
-import org.springdoc.core.GroupedOpenApi
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 
 @Configuration
 class SpringDocConfiguration {
-    @Bean
-    fun publicApi(): GroupedOpenApi? {
-        return GroupedOpenApi.builder()
-            .group("webapi-public")
-            .pathsToMatch("/public/**")
-            .build()
-    }
-
     @Bean
     fun webApiDoc(): OpenAPI? {
         val license: License = License()

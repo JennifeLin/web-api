@@ -21,7 +21,7 @@ repositories {
 
 extra["mockitoVersion"] = "4.3.1"
 extra["modelMapperVersion"] = "3.0.0"
-extra["openApiVersion"] = "1.6.5"
+extra["openApiVersion"] = "1.6.6"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -34,6 +34,9 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.modelmapper:modelmapper:${property("modelMapperVersion")}")
 	implementation("org.springdoc:springdoc-openapi-ui:${property("openApiVersion")}")
+	implementation("org.springdoc:springdoc-openapi-data-rest:${property("openApiVersion")}")
+	implementation("org.springdoc:springdoc-openapi-kotlin:${property("openApiVersion")}")
+	implementation("org.springdoc:springdoc-openapi-javadoc:${property("openApiVersion")}")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

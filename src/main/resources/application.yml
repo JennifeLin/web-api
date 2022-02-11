@@ -12,10 +12,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
+  data:
+    rest:
+      base-path: /api/
 
 springdoc:
   packages-to-scan: com.alg.boot.webapi
-  paths-to-match: /api/v1/**
+  paths-to-match: /api/**
 
 logging:
   level:

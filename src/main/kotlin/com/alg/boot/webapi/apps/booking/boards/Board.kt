@@ -1,6 +1,9 @@
 package com.alg.boot.webapi.apps.booking.boards
 
 import com.alg.boot.webapi.apps.booking.restaurants.Restaurant
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import java.time.Instant
 import javax.persistence.*
 
 
@@ -21,4 +24,12 @@ class Board {
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null
+
+    @Column(name = "CREATED_AT")
+    @CreatedDate
+    var createdAt: Instant? = null
+
+    @Column(name = "UPDATED_AT")
+    @LastModifiedDate
+    var updatedAt: Instant? = null
 }

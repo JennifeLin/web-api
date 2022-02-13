@@ -1,25 +1,33 @@
-package com.alg.boot.webapi.apps.booking.turns
+package com.alg.boot.webapi.apps.ats.profiles
 
-import com.alg.boot.webapi.apps.booking.restaurants.Restaurant
+import org.hibernate.validator.constraints.Range
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.Instant
 import javax.persistence.*
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "turns")
-class Turn(
+@Table(name = "skills")
+class Skill(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false, length = 160)
+    @NotBlank
     var name: String? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "RESTAURANT_ID", nullable = false)
-    var restaurant: Restaurant? = null,
+    @Column(name = "DESCRIPTION", length = 600)
+    @Lob
+    var description: String? = null,
+
+    @Column(name = "LEVEL")
+    @Positive
+    @Range(min = 1, max = 10)
+    var level: Int? = null,
 
     @Column(name = "CREATED_AT")
     @CreatedDate

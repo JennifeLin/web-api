@@ -8,7 +8,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "social_networks")
+@Table(name = "SOCIAL_NETWORKS")
 class SocialNetwork(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,7 @@ class SocialNetwork(
     @NotBlank
     var url: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     val description: String? = null,
 
     @Column(name = "CREATED_AT")

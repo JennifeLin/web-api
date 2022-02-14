@@ -6,19 +6,18 @@ import org.hibernate.validator.constraints.URL
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.Instant
-import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "characters")
+@Table(name = "CHARACTERS", uniqueConstraints = [UniqueConstraint(columnNames = ["REAL_NAME"])])
 class Character(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "REAL_NAME", nullable = false, length = 160)
+    @Column(name = "REAL_NAME", unique = true, nullable = false, length = 160)
     @NotBlank
     var realName: String,
 
@@ -26,7 +25,7 @@ class Character(
     @CollectionTable(name = "CHARACTERS_KNOWN_ALIASES", joinColumns = [JoinColumn(name = "CHARACTER_ID")])
     var knownAliases: List<String> = mutableListOf(),
 
-    @Column(name = "DESCRIPTION", columnDefinition = "TEXT")
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "IS_SUPER_HUMAN")

@@ -3,11 +3,10 @@ package com.alg.boot.webapi.apps.cms.posts
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.Instant
-import java.time.LocalDate
 import javax.persistence.*
 
 @Entity
-@Table(name = "tags")
+@Table(name = "TAGS", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME", "SLUG_URI"])])
 class Tag(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

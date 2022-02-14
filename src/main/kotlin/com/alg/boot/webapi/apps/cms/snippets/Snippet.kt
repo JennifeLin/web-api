@@ -8,7 +8,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "snippets")
+@Table(name = "SNIPPETS")
 class Snippet(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,12 @@ class Snippet(
     @Enumerated(EnumType.STRING)
     var language: ProgrammingLanguage? = null,
 
-    @Column(name = "CODE", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "CODE", nullable = false)
     @NotBlank
+    @Lob
     var code: String? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TECHNOLOGY_ID", nullable = false)
     var technology: Technology? = null,
 

@@ -9,7 +9,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(name = "jobs_candidates")
+@Table(name = "JOBS_CANDIDATES")
 class Candidate(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,7 @@ class Candidate(
     @Column(name = "STATUS")
     var status: JobStatus = JobStatus.NEW,
 
-    @Column(name = "NOTES", length = 100)
-    @Lob
+    @Column(name = "NOTES", length = 100, columnDefinition = "TEXT")
     var notes: String? = null,
 
     @Column(name = "CREATED_AT")

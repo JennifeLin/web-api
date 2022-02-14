@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "schools")
+@Table(name = "SCHOOLS")
 class School(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +33,7 @@ class School(
     @Positive
     var yearEnd: Int? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "CREATED_AT")

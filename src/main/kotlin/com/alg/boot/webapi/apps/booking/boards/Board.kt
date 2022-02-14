@@ -8,7 +8,7 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name = "boards")
+@Table(name = "BOARDS")
 class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,7 @@ class Board {
     @Column(name = "NUMBER")
     var number: Long? = null
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null
 

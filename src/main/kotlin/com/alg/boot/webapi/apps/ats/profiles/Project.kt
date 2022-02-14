@@ -8,7 +8,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "projetcs")
+@Table(name = "PROJECTS")
 class Project(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,7 @@ class Project(
     @NotBlank
     var name: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "URL")

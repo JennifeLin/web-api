@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PastOrPresent
 
 @Entity
-@Table(name = "publishers")
+@Table(name = "PUBLISHERS")
 class Publisher(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,7 @@ class Publisher(
     @NotBlank
     var name: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "COUNTRY_NAME", length = 64)

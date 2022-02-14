@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PositiveOrZero
 
 @Entity
-@Table(name = "photos")
+@Table(name = "PHOTOS")
 class Photo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

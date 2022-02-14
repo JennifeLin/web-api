@@ -9,18 +9,18 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "animes")
+@Table(name = "ANIMES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
 class Anime(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "NAME", nullable = false, length = 160)
+    @Column(name = "NAME", nullable = false, unique = true, length = 160)
     @NotBlank
     var name: String? = null,
 
-    @Column(name = "SUMMARY", columnDefinition = "TEXT")
+    @Column(name = "SUMMARY", length = 600, columnDefinition = "TEXT")
     var summary: String? = null,
 
     @Column(name = "SEASONS_NUMBER")

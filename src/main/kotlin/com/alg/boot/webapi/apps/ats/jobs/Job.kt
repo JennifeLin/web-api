@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "jobs")
+@Table(name = "JOBS", uniqueConstraints = [UniqueConstraint(columnNames = ["SLUG_URI"])])
 class Job(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,7 @@ class Job(
     @Column(name = "SLUG_URI", unique = true)
     var slug: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "TYPE_JOB", length = 64)
@@ -83,8 +82,7 @@ class Job(
     @CollectionTable(name = "JOBS_BENEFITS", joinColumns = [JoinColumn(name = "JOB_ID")])
     var benefits: List<String> = emptyList(),
 
-    @Column(name = "RESPONSIBILITIES", length = 500)
-    @Lob
+    @Column(name = "RESPONSIBILITIES", length = 1000, columnDefinition = "TEXT")
     var responsibilities: String? = null,
 
     @Column(name = "COVER_URL")

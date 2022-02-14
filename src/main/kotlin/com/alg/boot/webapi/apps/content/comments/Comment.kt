@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PositiveOrZero
 
 @Entity
-@Table(name = "comments")
+@Table(name = "COMMENTS")
 class Comment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +19,8 @@ class Comment(
     @NotBlank
     var subject: String? = null,
 
-    @Column(name = "CONTENT", nullable = false, length = 600)
+    @Column(name = "CONTENT", nullable = false, length = 1000, columnDefinition = "TEXT")
     @NotBlank
-    @Lob
     var content: String? = null,
 
     @Column(name = "IS_APPROVED")
@@ -40,8 +39,8 @@ class Comment(
     @Column(name = "AUTHOR_URL")
     var url: String? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "COMMENT_ID", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMMENT_ID", nullable = true)
     var parent: Comment? = null,
 
     @Column(name = "CREATED_AT")

@@ -8,7 +8,7 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
-@Table(name = "social_profiles")
+@Table(name = "SOCIAL_PROFILES")
 class SocialProfile(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

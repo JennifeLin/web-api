@@ -7,7 +7,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "sites")
+@Table(name = "SITES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME", "DOMAIN"])])
 class Site(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

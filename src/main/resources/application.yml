@@ -7,7 +7,7 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -18,7 +18,7 @@ spring:
 
 springdoc:
   packages-to-scan: com.alg.boot.webapi
-  paths-to-match: /api/**
+  paths-to-match: /api/v1/**
 
 logging:
   level:

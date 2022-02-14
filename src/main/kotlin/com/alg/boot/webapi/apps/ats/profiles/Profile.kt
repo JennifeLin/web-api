@@ -10,7 +10,7 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
-@Table(name = "profiles")
+@Table(name = "PROFILES", uniqueConstraints = [UniqueConstraint(columnNames = ["SLUG_URI"])])
 class Profile(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,7 @@ class Profile(
     @Transient
     var fullName: String? = null,
 
-    @Column(name = "SUMMARY", length = 600)
-    @Lob
+    @Column(name = "SUMMARY", length = 600, columnDefinition = "TEXT")
     var summary: String? = null,
 
     @ElementCollection

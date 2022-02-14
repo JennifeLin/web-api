@@ -8,7 +8,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "pages")
+@Table(name = "PAGES", uniqueConstraints = [UniqueConstraint(columnNames = ["TITLE", "SLUG_URI"])])
 class Page(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,8 @@ class Page(
     @NotBlank
     var title: String? = null,
 
-    @Column(name = "CONTENT", columnDefinition = "TEXT")
+    @Column(name = "CONTENT")
+    @Lob
     var content: String? = null,
 
     @Column(name = "STATUS", length = 64)

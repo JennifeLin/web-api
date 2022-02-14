@@ -1,6 +1,5 @@
 package com.alg.boot.webapi.apps.cms.sites
 
-import com.alg.boot.webapi.apps.cms.posts.Post
 import org.hibernate.validator.constraints.Range
 import org.hibernate.validator.constraints.URL
 import org.springframework.data.annotation.CreatedDate
@@ -10,7 +9,7 @@ import javax.persistence.*
 import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "seo_content")
+@Table(name = "SEO_CONTENT")
 class Seo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,10 +75,6 @@ class Seo(
 
     @Column(name = "TW_AUTHOR")
     var twitterAuthor: String? = null,
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "POST_ID", nullable = false)
-    var post: Post,
 
     @Column(name = "CREATED_AT")
     @CreatedDate

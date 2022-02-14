@@ -3,14 +3,13 @@ package com.alg.boot.webapi.apps.ats.profiles
 import com.alg.boot.webapi.enums.Currency
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
-import java.math.BigDecimal
 import java.time.Instant
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "works")
+@Table(name = "WORKS")
 class Work(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +20,7 @@ class Work(
     @NotBlank
     var title: String? = null,
 
-    @Column(name = "ACTIVITIES", nullable = false, length = 1000)
-    @Lob
+    @Column(name = "ACTIVITIES", nullable = false, length = 1000, columnDefinition = "TEXT")
     var activities: String? = null,
 
     @Column(name = "COMPANY", length = 160)
@@ -47,7 +45,7 @@ class Work(
     var currency: Currency = Currency.MXN,
 
     @ElementCollection
-    @CollectionTable(name = "works_benefits", joinColumns = [JoinColumn(name = "work_id")])
+    @CollectionTable(name = "WORKS_BENEFITS", joinColumns = [JoinColumn(name = "WORK_ID")])
     var benefits: List<String> = emptyList(),
 
     @Column(name = "CREATED_AT")

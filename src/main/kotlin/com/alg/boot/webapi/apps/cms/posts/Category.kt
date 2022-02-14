@@ -6,7 +6,7 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
-@Table(name = "categories")
+@Table(name = "CATEGORIES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME", "SLUG_URI"])])
 class Category(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,7 @@ class Category(
     @Column(name = "SLUG_URI", unique = true)
     var slug: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "CREATED_AT")

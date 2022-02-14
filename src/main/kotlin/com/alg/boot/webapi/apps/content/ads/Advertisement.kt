@@ -3,12 +3,11 @@ package com.alg.boot.webapi.apps.content.ads
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.Instant
-import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "ads")
+@Table(name = "ADS")
 class Advertisement(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +18,9 @@ class Advertisement(
     @NotBlank
     var name: String? = null,
 
-    @Column(name = "CODE", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "CODE", nullable = false)
     @NotBlank
+    @Lob
     var code: String? = null,
 
     @Column(name = "CREATED_AT")

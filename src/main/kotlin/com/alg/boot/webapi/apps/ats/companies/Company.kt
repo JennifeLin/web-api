@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PastOrPresent
 
 @Entity
-@Table(name = "companies")
+@Table(name = "COMPANIES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
 class Company(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,8 +22,7 @@ class Company(
     @NotBlank
     var name: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "WEBSITE_URL")
@@ -42,8 +41,8 @@ class Company(
     var location: Location? = null,
 
     @ElementCollection
-    @CollectionTable(name = "COMPANIES_VALUES", joinColumns = [JoinColumn(name = "COMPANY_ID")])
-    var values: List<String>? = null,
+    @CollectionTable(name = "COMPANIES_BENEFITS", joinColumns = [JoinColumn(name = "COMPANY_ID")])
+    var benefits: List<String>? = emptyList(),
 
     @Column(name = "COMPANY_SIZE", length = 64)
     var size: String? = null,
@@ -58,8 +57,7 @@ class Company(
     )
     var photos: List<Photo> = emptyList(),
 
-    @Column(name = "MISSION", length = 600)
-    @Lob
+    @Column(name = "MISSION", length = 600, columnDefinition = "TEXT")
     var mission: String? = null,
 
     @Column(name = "CREATED_AT")

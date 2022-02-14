@@ -9,7 +9,7 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "RESTAURANTS")
 class Restaurant(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,18 +9,18 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "technologies")
+@Table(name = "TECHNOLOGIES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
 class Technology(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "NAME", nullable = false, length = 160)
+    @Column(name = "NAME", nullable = false, unique = true, length = 160)
     @NotBlank
     var name: String? = null,
 
-    @Column(name = "DESCRIPTION", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "DESCRIPTION", nullable = false, length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "LOGO_URL")

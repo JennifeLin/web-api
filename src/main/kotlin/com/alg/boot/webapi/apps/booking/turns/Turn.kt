@@ -7,7 +7,7 @@ import java.time.Instant
 import javax.persistence.*
 
 @Entity
-@Table(name = "turns")
+@Table(name = "TURNS")
 class Turn(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ class Turn(
     @Column(name = "NAME")
     var name: String? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null,
 

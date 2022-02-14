@@ -13,14 +13,14 @@ import javax.validation.constraints.PastOrPresent
 import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "consoles")
+@Table(name = "CONSOLES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
 class Console(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "NAME", nullable = false, length = 64)
+    @Column(name = "NAME", unique = true, nullable = false, length = 64)
     @NotBlank
     var name: String? = null,
 
@@ -35,8 +35,7 @@ class Console(
     @URL
     var logo: String? = null,
 
-    @Column(name = "DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "PRICE")

@@ -7,7 +7,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "locations")
+@Table(name = "LOCATIONS")
 class Location(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

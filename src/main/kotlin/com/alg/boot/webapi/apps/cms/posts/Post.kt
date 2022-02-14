@@ -15,7 +15,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "posts")
+@Table(name = "POSTS", uniqueConstraints = [UniqueConstraint(columnNames = ["TITLE", "SLUG_URI"])])
 class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +29,11 @@ class Post(
     @NotBlank
     var title: String? = null,
 
-    @Column(name = "SUMMARY", length = 600)
-    @Lob
+    @Column(name = "SUMMARY", length = 600, columnDefinition = "TEXT")
     var summary: String? = null,
 
-    @Column(name = "CONTENT", columnDefinition = "TEXT")
+    @Column(name = "CONTENT")
+    @Lob
     var content: String? = null,
 
     @Column(name = "COVER_URL")
@@ -44,7 +44,7 @@ class Post(
     @Enumerated(EnumType.STRING)
     var status: Status = Status.DRAFT,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID", nullable = true)
     var category: Category? = null,
 
@@ -61,7 +61,7 @@ class Post(
     @Column(name = "IS_PUBLISHED")
     var isPublished: Boolean = false,
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SITE_ID", nullable = false)
     var site: Site,
 

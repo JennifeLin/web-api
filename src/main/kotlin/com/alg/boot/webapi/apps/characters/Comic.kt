@@ -6,14 +6,13 @@ import org.hibernate.validator.constraints.URL
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.Instant
-import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Positive
 import javax.validation.constraints.PositiveOrZero
 
 @Entity
-@Table(name = "comics")
+@Table(name = "COMICS")
 class Comic(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,11 +28,10 @@ class Comic(
     @PositiveOrZero
     var comicNumber: Int,
 
-    @Column(name = "VARIANT_DESCRIPTION", length = 600)
-    @Lob
+    @Column(name = "VARIANT_DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var variantDescription: String? = null,
 
-    @Column(name = "DESCRIPTION", columnDefinition = "TEXT")
+    @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
 
     @Column(name = "ISBN", nullable = false, length = 24)

@@ -4,13 +4,12 @@ import org.hibernate.validator.constraints.URL
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
 import java.time.Instant
-import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PositiveOrZero
 
 @Entity
-@Table(name = "articles")
+@Table(name = "ARTICLES", uniqueConstraints = [UniqueConstraint(columnNames = ["TITLE", "SLUG_URI"])])
 class Article (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +23,8 @@ class Article (
     @Column(name = "SLUG_URI", unique = true)
     var slug: String? = null,
 
-    @Column(name = "CONTENT", columnDefinition = "TEXT")
+    @Column(name = "CONTENT")
+    @Lob
     var content: String? = null,
 
     @Column(name = "COVER_URL")

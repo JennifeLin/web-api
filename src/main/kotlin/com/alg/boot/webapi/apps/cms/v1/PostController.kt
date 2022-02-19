@@ -51,4 +51,8 @@ class PostController(
     @PostMapping("/{id}/comments")
     fun addComment(@PathVariable id: Long, @Valid @RequestBody comment: CommentJson): GeneralResponse<CommentJson?> =
         GeneralResponse("success", HttpStatus.OK.value(), "OK", postService.addComment(id, comment))
+
+    @PutMapping("/{id}/comments")
+    fun editComment(@PathVariable id: Long, @Valid @RequestBody comment: CommentJson): GeneralResponse<CommentJson?> =
+        GeneralResponse("success", HttpStatus.OK.value(), "OK", postService.editComment(id, comment))
 }

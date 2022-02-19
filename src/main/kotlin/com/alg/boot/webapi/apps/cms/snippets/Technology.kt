@@ -1,15 +1,13 @@
 package com.alg.boot.webapi.apps.cms.snippets
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.TypeTechnology
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "TECHNOLOGIES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
+@Table(name = "TECHNOLOGIES")
 class Technology(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,12 +32,4 @@ class Technology(
     @Column(name = "TECHNOLOGY")
     @Enumerated(EnumType.STRING)
     var technology: TypeTechnology? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

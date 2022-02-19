@@ -1,17 +1,15 @@
 package com.alg.boot.webapi.apps.ats.companies
 
 import com.alg.boot.webapi.apps.content.galleries.Photo
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PastOrPresent
 
 @Entity
-@Table(name = "COMPANIES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
+@Table(name = "COMPANIES")
 class Company(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,13 +56,5 @@ class Company(
     var photos: List<Photo> = emptyList(),
 
     @Column(name = "MISSION", length = 600, columnDefinition = "TEXT")
-    var mission: String? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+    var mission: String? = null
+): AuditableEntity<String>()

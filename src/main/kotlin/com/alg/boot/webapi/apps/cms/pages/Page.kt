@@ -1,24 +1,22 @@
 package com.alg.boot.webapi.apps.cms.pages
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.Status
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "PAGES", uniqueConstraints = [UniqueConstraint(columnNames = ["TITLE", "SLUG_URI"])])
+@Table(name = "PAGES")
 class Page(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "SLUG_URI", unique = true)
+    @Column(name = "SLUG_URI", nullable = false, unique = true)
     var slug: String? = null,
 
-    @Column(name = "TITLE", nullable = true, length = 160)
+    @Column(name = "TITLE", nullable = false, length = 160)
     @NotBlank
     var title: String? = null,
 
@@ -29,12 +27,4 @@ class Page(
     @Column(name = "STATUS", length = 64)
     @Enumerated(EnumType.STRING)
     var status: Status = Status.DRAFT,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

@@ -3,26 +3,24 @@ package com.alg.boot.webapi.apps.cms.posts
 import com.alg.boot.webapi.apps.cms.sites.Seo
 import com.alg.boot.webapi.apps.cms.sites.Site
 import com.alg.boot.webapi.apps.content.comments.Comment
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.Status
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "POSTS", uniqueConstraints = [UniqueConstraint(columnNames = ["TITLE", "SLUG_URI"])])
+@Table(name = "POSTS")
 class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "SLUG_URI", unique = true)
+    @Column(name = "SLUG_URI", nullable = false, unique = true)
     var slug: String? = null,
 
     @Column(name = "TITLE", nullable = false, length = 160)
@@ -73,12 +71,4 @@ class Post(
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "POST_ID")
     var comments: List<Comment> = emptyList(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

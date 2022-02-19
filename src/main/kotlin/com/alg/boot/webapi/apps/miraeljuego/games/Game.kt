@@ -9,13 +9,11 @@ import com.alg.boot.webapi.apps.miraeljuego.consoles.Console
 import com.alg.boot.webapi.apps.miraeljuego.developers.Developer
 import com.alg.boot.webapi.apps.miraeljuego.genres.Genre
 import com.alg.boot.webapi.apps.miraeljuego.publishers.Publisher
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.Range
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
@@ -29,7 +27,7 @@ class Game(
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "NAME", nullable = false, length = 64)
+    @Column(name = "NAME", unique = true, nullable = false, length = 64)
     @NotBlank
     var name: String? = null,
 
@@ -91,12 +89,4 @@ class Game(
         inverseJoinColumns = [JoinColumn(name = "TAG_ID")]
     )
     var tags: MutableList<Tag> = mutableListOf(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

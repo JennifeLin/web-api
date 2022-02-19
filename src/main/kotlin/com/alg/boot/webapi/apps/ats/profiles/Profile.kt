@@ -1,21 +1,20 @@
 package com.alg.boot.webapi.apps.ats.profiles
 
 import com.alg.boot.webapi.apps.ats.companies.Location
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "PROFILES", uniqueConstraints = [UniqueConstraint(columnNames = ["SLUG_URI"])])
+@Table(name = "PROFILES")
 class Profile(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
-    var id: Long? = null,
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    var id: UUID? = null,
 
     @Column(name = "NAME", nullable = false, length = 100)
     var firstName: String? = null,
@@ -75,12 +74,4 @@ class Profile(
     @Column(name = "PROFILE_CV_URL")
     @URL
     var profileUrl: String? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

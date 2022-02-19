@@ -1,11 +1,9 @@
 package com.alg.boot.webapi.apps.miraeljuego.consoles
 
 import com.alg.boot.webapi.apps.content.galleries.Photo
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.Range
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
@@ -13,7 +11,7 @@ import javax.validation.constraints.PastOrPresent
 import javax.validation.constraints.Positive
 
 @Entity
-@Table(name = "CONSOLES", uniqueConstraints = [UniqueConstraint(columnNames = ["NAME"])])
+@Table(name = "CONSOLES")
 class Console(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,12 +47,4 @@ class Console(
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "console")
     var photos: List<Photo> = emptyList(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

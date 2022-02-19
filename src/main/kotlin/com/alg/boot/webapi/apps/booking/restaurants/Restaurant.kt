@@ -3,9 +3,7 @@ package com.alg.boot.webapi.apps.booking.restaurants
 import com.alg.boot.webapi.apps.booking.boards.Board
 import com.alg.boot.webapi.apps.booking.reservations.Reservation
 import com.alg.boot.webapi.apps.booking.turns.Turn
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import javax.persistence.*
 
 @Entity
@@ -36,12 +34,4 @@ class Restaurant(
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
     var turns: List<Turn> = emptyList(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

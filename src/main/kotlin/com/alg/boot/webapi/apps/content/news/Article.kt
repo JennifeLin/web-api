@@ -1,15 +1,13 @@
 package com.alg.boot.webapi.apps.content.news
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PositiveOrZero
 
 @Entity
-@Table(name = "ARTICLES", uniqueConstraints = [UniqueConstraint(columnNames = ["TITLE", "SLUG_URI"])])
+@Table(name = "ARTICLES")
 class Article (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +18,7 @@ class Article (
     @NotBlank
     var title: String? = null,
 
-    @Column(name = "SLUG_URI", unique = true)
+    @Column(name = "SLUG_URI", nullable = false, unique = true)
     var slug: String? = null,
 
     @Column(name = "CONTENT")
@@ -38,12 +36,4 @@ class Article (
     @Column(name = "NUMBER_OF_COMMENTS")
     @PositiveOrZero
     var comments: Int = 0,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

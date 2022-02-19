@@ -1,9 +1,7 @@
 package com.alg.boot.webapi.apps.booking.reservations
 
 import com.alg.boot.webapi.apps.booking.restaurants.Restaurant
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import java.util.*
 import javax.persistence.*
 
@@ -30,12 +28,4 @@ class Reservation(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

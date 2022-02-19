@@ -1,8 +1,6 @@
 package com.alg.boot.webapi.apps.cms.sites
 
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import javax.persistence.*
 
 @Entity
@@ -22,12 +20,4 @@ class Setting(
     @Column(name = "PROPERTY_VALUE")
     @Lob
     var value: String? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

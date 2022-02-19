@@ -1,9 +1,7 @@
 package com.alg.boot.webapi.apps.cms.sites
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -26,12 +24,4 @@ class SocialNetwork(
 
     @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     val description: String? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

@@ -1,6 +1,7 @@
 package com.alg.boot.webapi.apps.cms.posts.data
 
 import com.alg.boot.webapi.apps.cms.sites.data.SeoJson
+import com.alg.boot.webapi.apps.cms.sites.data.SiteJson
 import java.time.LocalDate
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.Size
@@ -19,4 +20,5 @@ class PostCreateJson {
     var publishedAt: LocalDate? = null
     var isPublished: Boolean? = null
     var seo: SeoJson? = null
+    var site: SiteJson? = null
 }

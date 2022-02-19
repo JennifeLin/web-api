@@ -1,9 +1,7 @@
 package com.alg.boot.webapi.apps.ats.profiles
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.Currency
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
@@ -47,12 +45,4 @@ class Work(
     @ElementCollection
     @CollectionTable(name = "WORKS_BENEFITS", joinColumns = [JoinColumn(name = "WORK_ID")])
     var benefits: List<String> = emptyList(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

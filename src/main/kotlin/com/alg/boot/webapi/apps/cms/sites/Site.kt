@@ -1,8 +1,6 @@
 package com.alg.boot.webapi.apps.cms.sites
 
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -14,11 +12,11 @@ class Site(
     @Column(name = "ID", unique = true, nullable = false)
     var id: Long? = null,
 
-    @Column(name = "NAME", length = 160, unique = true, nullable = false)
+    @Column(name = "NAME", length = 160, nullable = false)
     @NotBlank
     var name: String,
 
-    @Column(name = "DOMAIN", unique = true, nullable = false)
+    @Column(name = "DOMAIN", nullable = false)
     @NotBlank
     var domain: String? = null,
 
@@ -64,12 +62,4 @@ class Site(
         inverseJoinColumns = [JoinColumn(name = "SETTING_ID")]
     )
     var settings: List<Setting> = emptyList(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

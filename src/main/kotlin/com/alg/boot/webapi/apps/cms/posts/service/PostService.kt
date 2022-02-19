@@ -13,4 +13,5 @@ interface PostService {
     fun delete(id: Long): Boolean
     fun getComments(postId: Long): List<CommentJson>
     fun addComment(postId: Long, comment: CommentJson): CommentJson?
+    fun editComment(commentId: Long, comment: CommentJson): CommentJson
 }

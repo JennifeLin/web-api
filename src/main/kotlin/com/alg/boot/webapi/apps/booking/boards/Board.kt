@@ -1,15 +1,13 @@
 package com.alg.boot.webapi.apps.booking.boards
 
 import com.alg.boot.webapi.apps.booking.restaurants.Restaurant
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import javax.persistence.*
 
 
 @Entity
 @Table(name = "BOARDS")
-class Board {
+class Board: AuditableEntity<String>() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false)
@@ -24,12 +22,4 @@ class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RESTAURANT_ID", nullable = false)
     var restaurant: Restaurant? = null
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null
 }

@@ -1,8 +1,6 @@
 package com.alg.boot.webapi.apps.ats.companies
 
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -29,12 +27,4 @@ class Location(
 
     @Column(name = "COUNTRY", length = 160)
     var country: String? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

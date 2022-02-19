@@ -1,9 +1,7 @@
 package com.alg.boot.webapi.apps.cms.snippets
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.ProgrammingLanguage
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -31,12 +29,4 @@ class Snippet(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TECHNOLOGY_ID", nullable = false)
     var technology: Technology? = null,
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

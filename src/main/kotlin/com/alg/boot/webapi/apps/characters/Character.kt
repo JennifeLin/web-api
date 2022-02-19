@@ -1,16 +1,14 @@
 package com.alg.boot.webapi.apps.characters
 
+import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.Gender
 import com.alg.boot.webapi.enums.TypeCharacter
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
 @Entity
-@Table(name = "CHARACTERS", uniqueConstraints = [UniqueConstraint(columnNames = ["REAL_NAME"])])
+@Table(name = "CHARACTERS")
 class Character(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,12 +66,4 @@ class Character(
         inverseJoinColumns = [JoinColumn(name = "ANIME_ID")]
     )
     var animes: List<Anime> = mutableListOf(),
-
-    @Column(name = "CREATED_AT")
-    @CreatedDate
-    var createdAt: Instant? = null,
-
-    @Column(name = "UPDATED_AT")
-    @LastModifiedDate
-    var updatedAt: Instant? = null,
-)
+): AuditableEntity<String>()

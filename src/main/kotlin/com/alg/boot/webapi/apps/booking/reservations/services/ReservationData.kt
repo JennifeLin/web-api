@@ -32,19 +32,19 @@ class ReservationData(
     override fun createReservation(reservation: ReservationCreateJson): String {
         val turn = reservation.turnId?.let {
             turnRepository.findById(it)
-                .orElseThrow { NotFoundException("DATA_404", "Turn with id ${reservation.turnId} not found") }
+                .orElseThrow { NotFoundException("Turn with id ${reservation.turnId} not found") }
         }
         val restaurant = reservation.restaurantId?.let {
             restaurantRepository.findById(it)
-                .orElseThrow { NotFoundException("DATA_404", "Restaurant with id ${reservation.restaurantId} not found") }
+                .orElseThrow { NotFoundException("Restaurant with id ${reservation.restaurantId} not found") }
         }
         val turnName = turn?.name
         val restaurantId = restaurant?.id
         if (turnName == null || restaurantId == null) {
-            throw ServerErrorException("DATA_500", "Turn or restaurant not found")
+            throw ServerErrorException("Turn or restaurant not found")
         }
         if(reservationRepository.findByTurnAndRestaurantId(turnName, restaurantId).isPresent) {
-            throw ServerErrorException("DATA_409", "Reservation already exists")
+            throw ServerErrorException("Reservation already exists")
         }
         val reservationEntity = Reservation()
         val locator = getLocator(restaurant, reservation)
@@ -57,7 +57,7 @@ class ReservationData(
             reservationRepository.save(reservationEntity)
         } catch (e: Exception) {
             log.error("Error while saving reservation: ${e.message}")
-            throw ServerErrorException("DATA_500", "Error while saving reservation")
+            throw ServerErrorException("Error while saving reservation")
         }
         return locator
     }

@@ -2,8 +2,9 @@ package com.alg.boot.webapi.apps.cms.posts.service
 
 import com.alg.boot.webapi.apps.cms.posts.Post
 import com.alg.boot.webapi.apps.cms.posts.PostRepository
-import com.alg.boot.webapi.apps.cms.posts.data.PostAllResponseJson
+import com.alg.boot.webapi.apps.cms.posts.data.PostDetailJson
 import com.alg.boot.webapi.apps.cms.posts.data.PostJson
+import com.alg.boot.webapi.apps.cms.posts.data.PostPageJson
 import com.alg.boot.webapi.apps.content.comments.Comment
 import com.alg.boot.webapi.apps.content.comments.CommentRepository
 import com.alg.boot.webapi.apps.content.comments.data.CommentJson
@@ -27,7 +28,7 @@ class PostData(private val postRepository: PostRepository, private val commentRe
         return modelMapper.map(postSaved, PostJson::class.java)
     }
 
-    override fun all(page: Int, size: Int, sort: String, sortDir: String): PostAllResponseJson {
+    override fun all(page: Int, size: Int, sort: String, sortDir: String): PostPageJson {
         var sortBy = Sort.by(sort).ascending()
         if (sortDir.contentEquals(Sort.Direction.DESC.name, true)) {
             sortBy = Sort.by(sort).descending()
@@ -37,7 +38,7 @@ class PostData(private val postRepository: PostRepository, private val commentRe
         val content = posts.content.stream().map {
                 post -> modelMapper.map(post, PostJson::class.java)
         }.collect(Collectors.toList())
-        val response = PostAllResponseJson()
+        val response = PostPageJson()
         response.content = content
         response.page = posts.number
         response.itemsOnPage = posts.size
@@ -49,6 +50,13 @@ class PostData(private val postRepository: PostRepository, private val commentRe
 
     override fun get(id: Long): PostJson? {
         return modelMapper.map(getPostById(id), PostJson::class.java)
+    }
+
+    override fun getBySlug(slug: String): PostDetailJson? {
+        val post = postRepository.findBySlug(slug).orElseThrow {
+            NotFoundException("No hay datos")
+        }
+        return modelMapper.map(post, PostDetailJson::class.java)
     }
 
     override fun delete(id: Long): Boolean {
@@ -81,7 +89,7 @@ class PostData(private val postRepository: PostRepository, private val commentRe
 
     private fun getPostById(id: Long): Post {
         val post = postRepository.findById(id).orElseThrow {
-            NotFoundException("Post not found", "No hay datos")
+            NotFoundException("No hay datos")
         }
         return post
     }

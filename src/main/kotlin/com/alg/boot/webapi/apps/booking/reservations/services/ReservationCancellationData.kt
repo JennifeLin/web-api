@@ -16,12 +16,12 @@ class ReservationCancellationData(private val reservationRepository: Reservation
 
     override fun cancelReservation(locator: String): String {
         reservationRepository.findByLocator(locator)
-            .orElseThrow { NotFoundException("DATA_404", "Reservation with locator $locator not found") }
+            .orElseThrow { NotFoundException("Reservation with locator $locator not found") }
         try {
             reservationRepository.deleteByLocator(locator)
         } catch (e: Exception) {
             log.error("Error while deleting reservation: ${e.message}")
-            throw ServerErrorException("DATA_500", "Error while deleting reservation")
+            throw ServerErrorException("Error while deleting reservation")
         }
         return "LOCATOR_${locator}_CANCELED"
     }

@@ -1,15 +1,18 @@
 package com.alg.boot.webapi.handlers.exceptions
 
 import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.ResponseStatus
 
+@ResponseStatus(HttpStatus.NOT_FOUND)
 class NotFoundException : GeneralException {
-    constructor(status: String?, message: String?) : super(
-        status!!,
-        HttpStatus.NOT_FOUND.value(),
+    constructor(message: String) : super(
+        HttpStatus.NOT_FOUND,
         message
     )
-    constructor(status: String?, message: String?, error: Error) : super(
-        status!!, HttpStatus.NOT_FOUND.value(), message, listOf(error)
+    constructor(message: String?, error: Error) : super(
+        HttpStatus.NOT_FOUND,
+        message,
+        listOf(error)
     )
 
     companion object {

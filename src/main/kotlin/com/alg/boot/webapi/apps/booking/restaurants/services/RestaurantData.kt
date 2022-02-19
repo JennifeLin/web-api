@@ -22,7 +22,7 @@ class RestaurantData(private val restaurantRepository: RestaurantRepository) : R
 
     override fun getRestaurant(id: Long): RestaurantDetailJson {
         val restaurant = restaurantRepository.findById(id).orElseThrow {
-            throw NotFoundException("DATA_404", "Restaurant with id $id not found")
+            throw NotFoundException("Restaurant with id $id not found")
         }
         return modelMapper.map(restaurant, RestaurantDetailJson::class.java)
     }

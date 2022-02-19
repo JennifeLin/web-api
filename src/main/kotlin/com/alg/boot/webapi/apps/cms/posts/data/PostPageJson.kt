@@ -1,6 +1,6 @@
 package com.alg.boot.webapi.apps.cms.posts.data
 
-class PostAllResponseJson {
+class PostPageJson {
     var content: List<PostJson> = emptyList()
     var totalItems: Int = 0
     var totalPages: Int = 0

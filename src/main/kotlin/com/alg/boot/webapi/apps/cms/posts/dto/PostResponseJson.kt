@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.cms.posts.dto
 
 import com.alg.boot.webapi.apps.cms.sites.data.SiteJson
-import com.alg.boot.webapi.enums.Status
+import com.arthurolg.enums.Status
 import java.time.LocalDate
 
 class PostResponseJson {

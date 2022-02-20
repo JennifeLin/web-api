@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.cms.pages
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.Status
+import com.arthurolg.enums.Status
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank

@@ -1,8 +1,8 @@
 package com.alg.boot.webapi.apps.characters
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.Gender
-import com.alg.boot.webapi.enums.TypeCharacter
+import com.arthurolg.enums.Gender
+import com.arthurolg.enums.TypeCharacter
 import org.hibernate.validator.constraints.URL
 import javax.persistence.*
 import javax.validation.constraints.NotBlank

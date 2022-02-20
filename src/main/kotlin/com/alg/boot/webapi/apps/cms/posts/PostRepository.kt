@@ -11,8 +11,11 @@ import java.util.*
 
 @RepositoryRestResource(collectionResourceRel = "posts", path = "posts")
 interface PostRepository: JpaRepository<Post, Long> {
-    fun countBySlug(slug: String): Int
-    fun findBySlug(slug: String): Optional<Post>
+    @RestResource(path = "count-by-slug", rel = "count-by-slug")
+    fun countBySlug(@Param("slug") slug: String): Int
+
+    @RestResource(path = "find-by-slug", rel = "find-by-slug")
+    fun findBySlug(@Param("slug") slug: String): Optional<Post>
 
     @RestResource(path = "title-starts-with", rel = "title-starts-with")
     fun findAllByTitleStartsWith(@Param("title") title: String?, p: Pageable?): Page<List<Post>>?

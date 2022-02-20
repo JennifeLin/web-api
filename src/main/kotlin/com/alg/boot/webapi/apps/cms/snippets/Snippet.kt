@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.cms.snippets
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.ProgrammingLanguage
+import com.arthurolg.enums.ProgrammingLanguage
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 

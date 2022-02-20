@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.characters
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.Format
+import com.arthurolg.enums.Format
 import org.hibernate.validator.constraints.ISBN
 import org.hibernate.validator.constraints.URL
 import javax.persistence.*

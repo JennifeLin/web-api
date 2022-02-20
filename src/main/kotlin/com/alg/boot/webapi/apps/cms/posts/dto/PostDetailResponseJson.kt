@@ -5,7 +5,7 @@ import com.alg.boot.webapi.apps.cms.posts.Tag
 import com.alg.boot.webapi.apps.cms.sites.Seo
 import com.alg.boot.webapi.apps.cms.sites.Site
 import com.alg.boot.webapi.apps.content.comments.Comment
-import com.alg.boot.webapi.enums.Status
+import com.arthurolg.enums.Status
 import java.time.LocalDateTime
 
 class PostDetailResponseJson {

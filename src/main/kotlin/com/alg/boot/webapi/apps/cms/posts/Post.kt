@@ -4,7 +4,7 @@ import com.alg.boot.webapi.apps.cms.sites.Seo
 import com.alg.boot.webapi.apps.cms.sites.Site
 import com.alg.boot.webapi.apps.content.comments.Comment
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.Status
+import com.arthurolg.enums.Status
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.URL

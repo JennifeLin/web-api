@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.ats.profiles
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.TypeSocialNetwork
+import com.arthurolg.enums.TypeSocialNetwork
 import javax.persistence.*
 
 @Entity

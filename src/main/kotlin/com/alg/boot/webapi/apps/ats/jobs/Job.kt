@@ -3,8 +3,8 @@ package com.alg.boot.webapi.apps.ats.jobs
 import com.alg.boot.webapi.apps.ats.companies.Company
 import com.alg.boot.webapi.apps.ats.companies.Location
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.Currency
-import com.alg.boot.webapi.enums.TypeJob
+import com.arthurolg.enums.TypeJob
+import com.arthurolg.enums.Currency
 import org.hibernate.validator.constraints.Range
 import org.hibernate.validator.constraints.URL
 import java.time.LocalDate

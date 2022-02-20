@@ -2,7 +2,7 @@ package com.alg.boot.webapi.apps.ats.jobs
 
 import com.alg.boot.webapi.apps.ats.profiles.Profile
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.JobStatus
+import com.arthurolg.enums.JobStatus
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull

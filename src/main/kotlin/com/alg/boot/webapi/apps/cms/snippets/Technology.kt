@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.cms.snippets
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.TypeTechnology
+import com.arthurolg.enums.TypeTechnology
 import org.hibernate.validator.constraints.URL
 import javax.persistence.*
 import javax.validation.constraints.NotBlank

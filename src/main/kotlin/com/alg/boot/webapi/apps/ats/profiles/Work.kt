@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.ats.profiles
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import com.alg.boot.webapi.enums.Currency
+import com.arthurolg.enums.Currency
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.NotBlank

@@ -1,6 +1,5 @@
 package com.alg.boot.webapi.handlers.exceptions
 
-import groovy.util.logging.Slf4j
 import org.springframework.data.rest.webmvc.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

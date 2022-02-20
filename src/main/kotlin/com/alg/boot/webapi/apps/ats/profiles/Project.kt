@@ -2,9 +2,6 @@ package com.alg.boot.webapi.apps.ats.profiles
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.URL
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.LastModifiedDate
-import java.time.Instant
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 

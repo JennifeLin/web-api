@@ -9,6 +9,7 @@ import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.URL
 import java.time.LocalDate
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -54,14 +55,14 @@ class Post(
     var tags: MutableList<Tag> = mutableListOf(),
 
     @Column(name = "PUBLISHED_AT")
-    var publishedAt: LocalDate,
+    var publishedAt: LocalDate? = null,
 
     @Column(name = "IS_PUBLISHED")
     var isPublished: Boolean = false,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SITE_ID", nullable = false)
-    var site: Site,
+    var site: Site? = null,
 
     @OneToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "SEO_ID", nullable = true)
@@ -71,4 +72,9 @@ class Post(
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "POST_ID")
     var comments: List<Comment> = emptyList(),
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

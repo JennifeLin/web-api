@@ -6,5 +6,6 @@ class AppConst {
         const val PAGE_SIZE = "20"
         const val SORT_BY = "id"
         const val SORT_DIRECTION = "asc"
+        const val FIELDS_FILTER = "FIELDS_FILTER"
     }
 }

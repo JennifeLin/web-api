@@ -1,6 +1,7 @@
 package com.alg.boot.webapi.apps.content.galleries
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -24,4 +25,9 @@ class Gallery(
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "gallery")
     var photos: List<Photo> = emptyList(),
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

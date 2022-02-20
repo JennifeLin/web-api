@@ -16,11 +16,12 @@ spring:
         format_sql: true
   data:
     rest:
-      base-path: /api/
+      base-path: /api/v1/
+      default-page-size: 20
 
 springdoc:
   packages-to-scan: com.alg.boot.webapi
-  paths-to-match: /api/v1/**
+  paths-to-match: /api/**
 
 logging:
   level:

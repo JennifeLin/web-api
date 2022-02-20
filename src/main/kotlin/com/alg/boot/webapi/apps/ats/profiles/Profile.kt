@@ -74,4 +74,9 @@ class Profile(
     @Column(name = "PROFILE_CV_URL")
     @URL
     var profileUrl: String? = null,
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

@@ -1,44 +1,46 @@
 package com.alg.boot.webapi.apps.cms.posts.service
 
+import com.alg.boot.webapi.apps.cms.posts.CategoryRepository
 import com.alg.boot.webapi.apps.cms.posts.Post
 import com.alg.boot.webapi.apps.cms.posts.PostRepository
-import com.alg.boot.webapi.apps.cms.posts.data.PostDetailJson
-import com.alg.boot.webapi.apps.cms.posts.data.PostJson
-import com.alg.boot.webapi.apps.cms.posts.data.PostPageJson
+import com.alg.boot.webapi.apps.cms.posts.dto.*
+import com.alg.boot.webapi.apps.cms.sites.Site
 import com.alg.boot.webapi.apps.cms.sites.SiteRepository
-import com.alg.boot.webapi.apps.cms.sites.data.SiteJson
-import com.alg.boot.webapi.apps.content.comments.Comment
-import com.alg.boot.webapi.apps.content.comments.CommentRepository
-import com.alg.boot.webapi.apps.content.comments.data.CommentJson
+import com.alg.boot.webapi.handlers.exceptions.BadRequestException
 import com.alg.boot.webapi.handlers.exceptions.NotFoundException
 import org.modelmapper.ModelMapper
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
-import java.util.*
 import java.util.stream.Collectors
 
 @Service
 class PostData(
-    private val commentRepository: CommentRepository,
+    private val modelMapper: ModelMapper,
+    private val categoryRepository: CategoryRepository,
+    private val categoryData: CategoryData,
     private val postRepository: PostRepository,
     private val siteRepository: SiteRepository
     ): PostService {
 
-    companion object {
-        private val modelMapper: ModelMapper = ModelMapper()
-    }
-
-    override fun create(post: PostJson): PostJson? {
-        val site = post.site?.id?.let { siteRepository.findById(it).orElseThrow { NotFoundException("No hay sitio") } }
-        post.site = modelMapper.map(site, SiteJson::class.java)
-        val postData = modelMapper.map(post, Post::class.java)
-        postData.slug = UUID.randomUUID().toString()
+    override fun create(postRequest: PostCreateRequestJson): PostResponseJson? {
+        val site = siteRepository.findByDomain(postRequest.domain)
+            .orElseThrow { BadRequestException("Domain ${postRequest.domain} not allowed") }
+        val postData = modelMapper.map(postRequest, Post::class.java)
+        postData.site = modelMapper.map(site, Site::class.java)
+        postData.category = postRequest.category?.let { categoryData.create(it) }
         val postSaved = postRepository.save(postData)
-        return modelMapper.map(postSaved, PostJson::class.java)
+        return modelMapper.map(postSaved, PostResponseJson::class.java)
     }
 
-    override fun all(page: Int, size: Int, sort: String, sortDir: String): PostPageJson {
+    override fun update(slug: String, postRequest: PostUpdateRequestJson): PostResponseJson? {
+        val post = findPostBySlug(slug)
+        modelMapper.map(postRequest, post)
+        val postSaved = postRepository.save(post)
+        return modelMapper.map(postSaved, PostResponseJson::class.java)
+    }
+
+    override fun all(page: Int, size: Int, sort: String, sortDir: String): PostPageResponseJson {
         var sortBy = Sort.by(sort).ascending()
         if (sortDir.contentEquals(Sort.Direction.DESC.name, true)) {
             sortBy = Sort.by(sort).descending()
@@ -46,9 +48,9 @@ class PostData(
         val pageable = PageRequest.of(page, size, sortBy)
         val posts = postRepository.findAll(pageable)
         val content = posts.content.stream().map {
-                post -> modelMapper.map(post, PostJson::class.java)
+                post -> modelMapper.map(post, PostResponseJson::class.java)
         }.collect(Collectors.toList())
-        val response = PostPageJson()
+        val response = PostPageResponseJson()
         response.content = content
         response.page = posts.number
         response.itemsOnPage = posts.size
@@ -58,19 +60,19 @@ class PostData(
         return response
     }
 
-    override fun get(id: Long): PostJson? {
-        return modelMapper.map(getPostById(id), PostJson::class.java)
+    override fun get(id: Long): PostResponseJson? {
+        return modelMapper.map(findPostById(id), PostResponseJson::class.java)
     }
 
-    override fun getBySlug(slug: String): PostDetailJson? {
+    override fun getBySlug(slug: String): PostDetailResponseJson? {
         val post = postRepository.findBySlug(slug).orElseThrow {
             NotFoundException("No hay datos")
         }
-        return modelMapper.map(post, PostDetailJson::class.java)
+        return modelMapper.map(post, PostDetailResponseJson::class.java)
     }
 
-    override fun delete(id: Long): Boolean {
-        val post = getPostById(id)
+    override fun delete(slug: String): Boolean {
+        val post = findPostBySlug(slug)
         try {
             postRepository.delete(post)
         } catch (e: Exception) {
@@ -79,36 +81,15 @@ class PostData(
         return true
     }
 
-    override fun getComments(postId: Long): List<CommentJson> {
-        val post = getPostById(postId)
-        return post.comments.stream().map {
-                comment -> modelMapper.map(comment, CommentJson::class.java)
-        }.collect(Collectors.toList())
-    }
-
-    override fun addComment(postId: Long, comment: CommentJson): CommentJson? {
-        val post = getPostById(postId)
-        val commentData = modelMapper.map(comment, Comment::class.java)
-        val commentSaved = commentRepository.save(commentData)
-        val comments = post.comments.toMutableList()
-        comments.add(commentSaved)
-        post.comments = comments
-        postRepository.save(post)
-        return modelMapper.map(commentSaved, CommentJson::class.java)
-    }
-
-    override fun editComment(commentId: Long, comment: CommentJson): CommentJson {
-        var commentData = commentRepository.findById(commentId).orElseThrow { NotFoundException("No hay comentario") }
-        comment.id = commentData.id
-        commentData = modelMapper.map(comment, Comment::class.java)
-        val commentSaved = commentRepository.save(commentData)
-        return modelMapper.map(commentSaved, CommentJson::class.java)
-    }
-
-    private fun getPostById(id: Long): Post {
-        val post = postRepository.findById(id).orElseThrow {
-            NotFoundException("No hay datos")
+    override fun findPostBySlug(slug: String): Post {
+        return postRepository.findBySlug(slug).orElseThrow {
+            NotFoundException("Post $slug not found")
         }
-        return post
+    }
+
+    override fun findPostById(id: Long): Post {
+        return postRepository.findById(id).orElseThrow {
+            NotFoundException("Post $id not found")
+        }
     }
 }

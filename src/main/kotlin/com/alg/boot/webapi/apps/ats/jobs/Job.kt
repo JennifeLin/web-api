@@ -87,4 +87,9 @@ class Job(
     @Column(name = "COVER_URL")
     @URL
     var cover: String? = null,
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

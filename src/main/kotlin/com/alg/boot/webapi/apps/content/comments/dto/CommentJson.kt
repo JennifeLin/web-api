@@ -1,4 +1,4 @@
-package com.alg.boot.webapi.apps.content.comments.data
+package com.alg.boot.webapi.apps.content.comments.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import javax.validation.constraints.NotBlank

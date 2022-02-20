@@ -1,6 +1,7 @@
 package com.alg.boot.webapi.apps.cms.posts
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -19,4 +20,9 @@ class Category(
 
     @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

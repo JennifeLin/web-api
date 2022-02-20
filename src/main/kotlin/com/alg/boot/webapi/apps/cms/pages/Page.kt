@@ -2,6 +2,7 @@ package com.alg.boot.webapi.apps.cms.pages
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.alg.boot.webapi.enums.Status
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -27,4 +28,9 @@ class Page(
     @Column(name = "STATUS", length = 64)
     @Enumerated(EnumType.STRING)
     var status: Status = Status.DRAFT,
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

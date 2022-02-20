@@ -2,6 +2,7 @@ package com.alg.boot.webapi.apps.content.news
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.URL
+import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.PositiveOrZero
@@ -36,4 +37,9 @@ class Article (
     @Column(name = "NUMBER_OF_COMMENTS")
     @PositiveOrZero
     var comments: Int = 0,
-): AuditableEntity<String>()
+): AuditableEntity<String>() {
+    @PrePersist
+    fun prePersistData() {
+        this.slug = UUID.randomUUID().toString()
+    }
+}

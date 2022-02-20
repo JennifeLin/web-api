@@ -1,4 +1,4 @@
-package com.alg.boot.webapi.apps.cms.posts.data
+package com.alg.boot.webapi.apps.cms.posts.dto
 
 import java.time.Instant
 

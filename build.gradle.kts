@@ -30,6 +30,7 @@ repositories {
 
 extra["mockitoVersion"] = "4.3.1"
 extra["modelMapperVersion"] = "3.0.0"
+extra["mapstructVersion"] = "1.4.2.Final"
 extra["openApiVersion"] = "1.6.6"
 
 dependencies {
@@ -38,6 +39,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-rest")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-loader-tools")
+	// implementation("org.springframework.boot:spring-boot-starter-mail")
+	// implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+	implementation("org.springframework.boot:spring-boot-starter-logging")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -48,6 +53,9 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-javadoc:${property("openApiVersion")}")
 	implementation("com.arthurolg:shared-utils:1.0.1")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")
+	annotationProcessor("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	runtimeOnly("mysql:mysql-connector-java")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")

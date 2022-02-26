@@ -10,7 +10,7 @@ import javax.persistence.*
 class Reservation(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "LOCATOR")

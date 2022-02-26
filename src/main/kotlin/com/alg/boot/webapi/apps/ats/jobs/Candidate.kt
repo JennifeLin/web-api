@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull
 class Candidate(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: UUID? = null,
 
     @ManyToOne

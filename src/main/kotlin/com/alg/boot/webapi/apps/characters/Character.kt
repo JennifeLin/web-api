@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank
 class Character(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "REAL_NAME", unique = true, nullable = false, length = 160)

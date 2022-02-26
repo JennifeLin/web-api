@@ -18,7 +18,7 @@ import javax.validation.constraints.Positive
 class Job(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: UUID? = null,
 
     @Column(name = "TITLE", nullable = false, length = 160)
@@ -55,8 +55,8 @@ class Job(
     @OneToOne
     var location: Location? = null,
 
-    @ManyToOne
-    @JoinColumn(name = "JOB_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "JOB_ID", nullable = false)
     var company: Company? = null,
 
     @Column(name = "URL")

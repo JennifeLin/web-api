@@ -14,7 +14,7 @@ import javax.validation.constraints.PositiveOrZero
 class Comic(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "TITLE", nullable = false, length = 160)
@@ -67,4 +67,7 @@ class Comic(
     @ElementCollection
     @CollectionTable(name = "COMICS_LANGUAGES", joinColumns = [JoinColumn(name = "COMIC_ID")])
     var languages: List<String> = mutableListOf(),
+
+    @OneToMany(mappedBy = "comics")
+    var characters: MutableSet<Character>? = null
 ): AuditableEntity<String>()

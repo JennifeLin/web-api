@@ -10,7 +10,7 @@ import javax.validation.constraints.Positive
 class School(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "INSTITUTION_NAME", nullable = false, length = 160)
@@ -33,4 +33,8 @@ class School(
 
     @Column(name = "DESCRIPTION", length = 600, columnDefinition = "TEXT")
     var description: String? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFILE_ID", nullable = false)
+    var profile: Profile? = null
 ): AuditableEntity<String>()

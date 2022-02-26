@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive
 class Seo(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "TITLE", length = 160)

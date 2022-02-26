@@ -1,5 +1,6 @@
 package com.alg.boot.webapi.apps.ats.companies
 
+import com.alg.boot.webapi.apps.ats.jobs.Job
 import com.alg.boot.webapi.apps.content.galleries.Photo
 import com.alg.boot.webapi.apps.shared.AuditableEntity
 import org.hibernate.validator.constraints.URL
@@ -13,7 +14,7 @@ import javax.validation.constraints.PastOrPresent
 class Company(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "NAME", nullable = false, unique = true, length = 160)
@@ -56,5 +57,8 @@ class Company(
     var photos: MutableList<Photo>? = null,
 
     @Column(name = "MISSION", length = 600, columnDefinition = "TEXT")
-    var mission: String? = null
+    var mission: String? = null,
+
+    @OneToMany(mappedBy = "company")
+    var jobs: MutableSet<Job>? = null
 ): AuditableEntity<String>()

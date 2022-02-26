@@ -13,7 +13,7 @@ import javax.persistence.*
 class Profile(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: UUID? = null,
 
     @Column(name = "NAME", nullable = false, length = 100)

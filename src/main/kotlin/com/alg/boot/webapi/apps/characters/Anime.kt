@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive
 class Anime(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "NAME", nullable = false, unique = true, length = 160)
@@ -32,4 +32,7 @@ class Anime(
     @Column(name = "COVER_URL")
     @URL
     var cover: String? = null,
+
+    @OneToMany(mappedBy = "animes")
+    var characters: MutableSet<Character>? = null
 ): AuditableEntity<String>()

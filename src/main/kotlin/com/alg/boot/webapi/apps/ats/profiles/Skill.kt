@@ -11,7 +11,7 @@ import javax.validation.constraints.Positive
 class Skill(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "NAME", nullable = false, length = 160)
@@ -25,4 +25,8 @@ class Skill(
     @Positive
     @Range(min = 1, max = 10)
     var level: Int? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFILE_ID", nullable = false)
+    var profile: Profile? = null
 ): AuditableEntity<String>()

@@ -15,7 +15,7 @@ import javax.validation.constraints.Positive
 class Console(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "NAME", unique = true, nullable = false, length = 64)

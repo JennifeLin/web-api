@@ -9,7 +9,7 @@ import javax.persistence.*
 class SocialProfile(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "TYPE_SOCIAL_PROFILE", nullable = false)
@@ -21,4 +21,8 @@ class SocialProfile(
 
     @Transient
     var url: String? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFILE_ID", nullable = false)
+    var profile: Profile? = null
 ): AuditableEntity<String>()

@@ -8,7 +8,7 @@ import javax.persistence.*
 class Setting(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "PROPERTY_NAME", nullable = false)

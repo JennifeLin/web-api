@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank
 class Project(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID", unique = true, nullable = false)
+    @Column(name = "ID", unique = true, nullable = false, updatable = false)
     var id: Long? = null,
 
     @Column(name = "NAME", nullable = false, length = 160)
@@ -23,4 +23,8 @@ class Project(
     @Column(name = "URL")
     @URL
     var url: String? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFILE_ID", nullable = false)
+    var profile: Profile? = null
 ): AuditableEntity<String>()

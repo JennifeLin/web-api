@@ -1,6 +1,7 @@
 package com.alg.boot.webapi.handlers.exceptions
 
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
+import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.data.rest.webmvc.ResourceNotFoundException
 import org.springframework.http.HttpHeaders
@@ -17,6 +18,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice(annotations = [RestController::class])
 class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
+
+    private val log = LoggerFactory.getLogger(GlobalExceptionHandler::class.java)
+
     override fun handleMethodArgumentNotValid(
         ex: MethodArgumentNotValidException,
         headers: HttpHeaders,
@@ -96,6 +100,7 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
     }
 
     private fun getErrorResponse(exception: GeneralException, description: String): ErrorResponse {
+        log.error("Código del error: ${exception.getCode()}, ${exception.message}")
         val status = exception.status
         val errors: MutableList<FieldErrorResponse> = mutableListOf()
         exception.getErrors().forEach { error ->

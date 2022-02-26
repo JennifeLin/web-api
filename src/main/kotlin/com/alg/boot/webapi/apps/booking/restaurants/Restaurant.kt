@@ -4,6 +4,8 @@ import com.alg.boot.webapi.apps.booking.boards.Board
 import com.alg.boot.webapi.apps.booking.reservations.Reservation
 import com.alg.boot.webapi.apps.booking.turns.Turn
 import com.alg.boot.webapi.apps.shared.AuditableEntity
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import javax.persistence.*
 
 @Entity
@@ -26,12 +28,18 @@ class Restaurant(
     @Column(name = "IMAGE")
     var image: String? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    @JoinColumn(name = "RESTAURANT_ID")
     var reservations: MutableList<Reservation>? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
+    @JoinColumn(name = "RESTAURANT_ID")
     var boards: MutableList<Board>? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
+    @JoinColumn(name = "RESTAURANT_ID")
     var turns: MutableList<Turn>? = null,
 ): AuditableEntity<String>()

@@ -61,5 +61,5 @@ class Site(
         joinColumns = [JoinColumn(name = "SITE_ID")],
         inverseJoinColumns = [JoinColumn(name = "SETTING_ID")]
     )
-    var settings: List<Setting> = emptyList(),
+    var settings: MutableList<Setting>? = null,
 ): AuditableEntity<String>()

@@ -46,5 +46,5 @@ class Console(
     var rating: Int = 0,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "console")
-    var photos: List<Photo> = emptyList(),
+    var photos: MutableList<Photo>? = null,
 ): AuditableEntity<String>()

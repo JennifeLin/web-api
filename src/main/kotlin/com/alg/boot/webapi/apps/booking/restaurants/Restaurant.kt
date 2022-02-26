@@ -27,11 +27,11 @@ class Restaurant(
     var image: String? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var reservations: List<Reservation> = emptyList(),
+    var reservations: MutableList<Reservation>? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var boards: List<Board> = emptyList(),
+    var boards: MutableList<Board>? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "restaurant")
-    var turns: List<Turn> = emptyList(),
+    var turns: MutableList<Turn>? = null,
 ): AuditableEntity<String>()

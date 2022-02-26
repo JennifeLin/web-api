@@ -21,17 +21,17 @@ class CommentData(
 
     override fun getPostComments(slug: String): List<CommentResponseJson> {
         val post = postData.findPostBySlug(slug)
-        return post.comments.stream().map { comment ->
+        return post.comments?.stream()?.map { comment ->
             modelMapper.map(comment, CommentResponseJson::class.java)
-        }.collect(Collectors.toList())
+        }?.collect(Collectors.toList()) ?: emptyList()
     }
 
     override fun addPostComment(slug: String, commentRequest: CommentRequestJson): CommentResponseJson {
         val post = postData.findPostBySlug(slug)
         val comment = modelMapper.map(commentRequest, Comment::class.java)
         val commentSaved = commentRepository.save(comment)
-        val comments = post.comments.toMutableList()
-        comments.add(commentSaved)
+        val comments = post.comments?.toMutableList()
+        comments?.add(commentSaved)
         post.comments = comments
         postRepository.save(post)
         return modelMapper.map(commentSaved, CommentResponseJson::class.java)

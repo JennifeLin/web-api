@@ -46,30 +46,30 @@ class Game(
     @Column(name = "RELEASE_DATE")
     var releaseDate: LocalDate? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "GAME_ID")
-    var genres: List<Genre> = emptyList(),
+    var genres: MutableList<Genre>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "GAME_ID")
-    var news: List<Article> = emptyList(),
+    var news: MutableList<Article>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "GAME_ID")
-    var galleries: List<Gallery> = emptyList(),
+    var galleries: MutableList<Gallery>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "GAME_ID")
-    var videos: List<Video> = emptyList(),
+    var videos: MutableList<Video>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "GAME_ID")
-    var consoles: List<Console> = emptyList(),
+    var consoles: MutableList<Console>? = null,
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "PUBLISHER_ID", nullable = true)
@@ -88,5 +88,5 @@ class Game(
         joinColumns = [JoinColumn(name = "GAME_ID")],
         inverseJoinColumns = [JoinColumn(name = "TAG_ID")]
     )
-    var tags: MutableList<Tag> = mutableListOf(),
+    var tags: MutableList<Tag>? = null,
 ): AuditableEntity<String>()

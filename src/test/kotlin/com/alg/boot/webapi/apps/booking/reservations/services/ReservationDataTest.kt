@@ -118,9 +118,9 @@ internal class ReservationDataTest {
             address = "Restaurant address",
             description = "Restaurant description",
             image = "Restaurant image",
-            reservations = emptyList(),
-            boards = emptyList(),
-            turns = emptyList(),
+            reservations = mutableListOf(),
+            boards = mutableListOf(),
+            turns = mutableListOf(),
         )
         private val RESTAURANT_WITHOUT_ID = Restaurant(
             id = null,
@@ -128,9 +128,9 @@ internal class ReservationDataTest {
             address = "Restaurant address",
             description = "Restaurant description",
             image = "Restaurant image",
-            reservations = emptyList(),
-            boards = emptyList(),
-            turns = emptyList(),
+            reservations = mutableListOf(),
+            boards = mutableListOf(),
+            turns = mutableListOf(),
         )
         private const val TURN_ID = 1L
         private const val TURN_NAME = "Turn1_11-20"

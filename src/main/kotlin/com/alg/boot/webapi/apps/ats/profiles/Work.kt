@@ -44,5 +44,5 @@ class Work(
 
     @ElementCollection
     @CollectionTable(name = "WORKS_BENEFITS", joinColumns = [JoinColumn(name = "WORK_ID")])
-    var benefits: List<String> = emptyList(),
+    var benefits: List<String>? = null,
 ): AuditableEntity<String>()

@@ -1,6 +1,6 @@
-package com.alg.boot.webapi.utils
+package com.alg.boot.webapi.apps.shared
 
-class AppConst {
+class Constants {
     companion object {
         const val PAGE_NUMBER = "0"
         const val PAGE_SIZE = "20"

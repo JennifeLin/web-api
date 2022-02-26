@@ -53,7 +53,7 @@ class Company(
         joinColumns = [JoinColumn(name = "COMPANY_ID")],
         inverseJoinColumns = [JoinColumn(name = "PHOTO_ID")]
     )
-    var photos: List<Photo> = emptyList(),
+    var photos: MutableList<Photo>? = null,
 
     @Column(name = "MISSION", length = 600, columnDefinition = "TEXT")
     var mission: String? = null

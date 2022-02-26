@@ -2,8 +2,8 @@ package com.alg.boot.webapi.apps.cms.controllers.v1
 
 import com.alg.boot.webapi.apps.cms.posts.dto.*
 import com.alg.boot.webapi.apps.cms.posts.service.PostService
+import com.alg.boot.webapi.apps.shared.Constants
 import com.alg.boot.webapi.handlers.responses.GeneralResponse
-import com.alg.boot.webapi.utils.AppConst
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -16,10 +16,10 @@ class PostController(
 ) {
     @GetMapping
     fun getPosts(
-        @RequestParam(value = "page", defaultValue = AppConst.PAGE_NUMBER, required = false) page: Int,
-        @RequestParam(value = "size", defaultValue = AppConst.PAGE_SIZE, required = false) size: Int,
-        @RequestParam(value = "sort", defaultValue = AppConst.SORT_BY, required = false) sort: String,
-        @RequestParam(value = "direction", defaultValue = AppConst.SORT_DIRECTION, required = false) direction: String,
+        @RequestParam(value = "page", defaultValue = Constants.PAGE_NUMBER, required = false) page: Int,
+        @RequestParam(value = "size", defaultValue = Constants.PAGE_SIZE, required = false) size: Int,
+        @RequestParam(value = "sort", defaultValue = Constants.SORT_BY, required = false) sort: String,
+        @RequestParam(value = "direction", defaultValue = Constants.SORT_DIRECTION, required = false) direction: String,
     ): GeneralResponse<PostPageResponseJson> =
         GeneralResponse(HttpStatus.OK.value(), postService.all(page, size, sort, direction))
 

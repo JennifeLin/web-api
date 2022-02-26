@@ -52,7 +52,7 @@ class Post(
         joinColumns = [JoinColumn(name = "POST_ID")],
         inverseJoinColumns = [JoinColumn(name = "TAG_ID")]
     )
-    var tags: MutableList<Tag> = mutableListOf(),
+    var tags: MutableList<Tag>? = null,
 
     @Column(name = "PUBLISHED_AT")
     var publishedAt: LocalDate? = null,
@@ -68,10 +68,10 @@ class Post(
     @JoinColumn(name = "SEO_ID", nullable = true)
     var seo: Seo? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "POST_ID")
-    var comments: List<Comment> = emptyList(),
+    var comments: MutableList<Comment>? = null,
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {

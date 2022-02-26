@@ -46,30 +46,30 @@ class Profile(
     @CollectionTable(name = "PROFILES_TECHNOLOGIES", joinColumns = [JoinColumn(name = "PROFILE_ID")])
     var technologies: List<String> = emptyList(),
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "PROFILE_ID")
-    var skills: List<Skill> = emptyList(),
+    var skills: MutableList<Skill>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "PROFILE_ID")
-    var schools: List<School> = emptyList(),
+    var schools: MutableList<School>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "PROFILE_ID")
-    var works: List<Work> = emptyList(),
+    var works: MutableList<Work>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "PROFILE_ID")
-    var projects: List<Project> = emptyList(),
+    var projects: MutableList<Project>? = null,
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "PROFILE_ID")
-    var socialProfiles: List<SocialProfile> = emptyList(),
+    var socialProfiles: MutableList<SocialProfile>? = null,
 
     @Column(name = "PROFILE_CV_URL")
     @URL

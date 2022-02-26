@@ -58,12 +58,12 @@ class Character(
         joinColumns = [JoinColumn(name = "CHARACTER_ID")],
         inverseJoinColumns = [JoinColumn(name = "COMIC_ID")]
     )
-    var comics: List<Comic> = mutableListOf(),
+    var comics: MutableList<Comic>? = null,
 
     @ManyToMany(cascade = [CascadeType.ALL])
     @JoinTable(
         joinColumns = [JoinColumn(name = "CHARACTER_ID")],
         inverseJoinColumns = [JoinColumn(name = "ANIME_ID")]
     )
-    var animes: List<Anime> = mutableListOf(),
+    var animes: MutableList<Anime>? = null,
 ): AuditableEntity<String>()

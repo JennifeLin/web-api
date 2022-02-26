@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
 	id("org.springframework.boot") version "2.6.3"
@@ -52,6 +53,16 @@ dependencies {
 	testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc")
 	testImplementation("org.mockito:mockito-core:${property("mockitoVersion")}")
 	testImplementation("org.mockito:mockito-inline:${property("mockitoVersion")}")
+}
+
+allOpen {
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.MappedSuperclass")
+	annotation("javax.persistence.Embeddable")
+}
+
+tasks.getByName<BootRun>("bootRun") {
+	environment["SPRING_PROFILES_ACTIVE"] = environment["SPRING_PROFILES_ACTIVE"] ?: "local"
 }
 
 tasks.withType<KotlinCompile> {

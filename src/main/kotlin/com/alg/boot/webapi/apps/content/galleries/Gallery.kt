@@ -24,7 +24,7 @@ class Gallery(
     var description: String? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "gallery")
-    var photos: List<Photo> = emptyList(),
+    var photos: MutableList<Photo>? = null,
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {

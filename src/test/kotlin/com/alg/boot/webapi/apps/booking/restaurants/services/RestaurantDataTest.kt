@@ -59,9 +59,9 @@ internal class RestaurantDataTest {
             address = "Restaurant address",
             description = "Restaurant description",
             image = "Restaurant image",
-            reservations = emptyList(),
-            boards = emptyList(),
-            turns = emptyList(),
+            reservations = mutableListOf(),
+            boards = mutableListOf(),
+            turns = mutableListOf(),
         )
         private val RESTAURANTS: List<Restaurant> = listOf(RESTAURANT)
     }

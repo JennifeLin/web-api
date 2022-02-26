@@ -64,13 +64,6 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
         return ResponseEntity(errorResponse, status)
     }
 
-    @ExceptionHandler(BadRequestException::class)
-    fun handleBadRequestException(exception: BadRequestException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
-        val status = HttpStatus.BAD_REQUEST
-        val errorResponse = ErrorResponse(status.value(), exception.message, webRequest.getDescription(false))
-        return ResponseEntity(errorResponse, status)
-    }
-
     @ExceptionHandler(Exception::class)
     fun handleAnyException(exception: Exception, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
         val status = HttpStatus.INTERNAL_SERVER_ERROR
@@ -84,5 +77,30 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
         val status = HttpStatus.INTERNAL_SERVER_ERROR
         val errorResponse = ErrorResponse(status.value(), status.toString(), exception::class.simpleName)
         return ResponseEntity(errorResponse, status)
+    }
+
+    @ExceptionHandler(NotFoundException::class)
+    fun handleNotFoundException(exception: NotFoundException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(getErrorResponse(exception, webRequest.getDescription(false)), exception.status)
+    }
+
+    @ExceptionHandler(BadRequestException::class)
+    fun handleBadRequestException(exception: BadRequestException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
+        return ResponseEntity(getErrorResponse(exception, webRequest.getDescription(false)), exception.status)
+    }
+
+    @ExceptionHandler(ServerErrorException::class)
+    fun handleServerErrorException(exception: ServerErrorException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
+        exception.printStackTrace()
+        return ResponseEntity(getErrorResponse(exception, webRequest.getDescription(false)), exception.status)
+    }
+
+    private fun getErrorResponse(exception: GeneralException, description: String): ErrorResponse {
+        val status = exception.status
+        val errors: MutableList<FieldErrorResponse> = mutableListOf()
+        exception.getErrors().forEach { error ->
+            errors.add(FieldErrorResponse(error.name, error.value))
+        }
+        return ErrorResponse(status.value(), exception.message, description, errors)
     }
 }

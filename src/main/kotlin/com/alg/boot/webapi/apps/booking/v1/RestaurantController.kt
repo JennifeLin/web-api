@@ -5,10 +5,12 @@ import com.alg.boot.webapi.apps.booking.restaurants.data.RestaurantJson
 import com.alg.boot.webapi.apps.booking.restaurants.services.RestaurantService
 import com.alg.boot.webapi.handlers.responses.GeneralResponse
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@CrossOrigin(origins = ["http://localhost:3000"])
 @RequestMapping("/api/v1/restaurants")
 class RestaurantController(
     private val restaurantService: RestaurantService

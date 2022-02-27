@@ -9,7 +9,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 
 @Configuration
-class JacksonConfig {
+class JacksonConfiguration {
     @Bean
     fun jacksonCustomizer(): Jackson2ObjectMapperBuilderCustomizer? {
         return Jackson2ObjectMapperBuilderCustomizer { jacksonObjectMapperBuilder: Jackson2ObjectMapperBuilder ->

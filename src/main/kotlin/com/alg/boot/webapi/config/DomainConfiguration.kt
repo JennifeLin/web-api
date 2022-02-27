@@ -9,4 +9,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement
 @EntityScan("com.alg.boot.webapi.apps")
 @EnableJpaRepositories("com.alg.boot.webapi.apps")
 @EnableTransactionManagement
-class DomainConfig
+class DomainConfiguration

@@ -40,7 +40,6 @@ class WebApiApplication(private val env: Environment) {
 		@JvmStatic
 		fun main(args: Array<String>) {
 			val app = SpringApplication(WebApiApplication::class.java)
-			//DefaultProfileUtil.addDefaultProfile(app)
 			val env: Environment = app.run(*args).environment
 			logApplicationStartup(env)
 		}

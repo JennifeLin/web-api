@@ -2,8 +2,8 @@ package com.alg.boot.webapi.apps.cms.controllers.v1
 
 import com.alg.boot.webapi.apps.cms.posts.dto.*
 import com.alg.boot.webapi.apps.cms.posts.service.PostService
-import com.alg.boot.webapi.apps.shared.Constants
 import com.alg.boot.webapi.handlers.responses.GeneralResponse
+import com.arthurolg.constants.Constants
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid

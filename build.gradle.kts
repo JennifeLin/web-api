@@ -21,7 +21,7 @@ repositories {
 	maven {
 		name = "github"
         credentials {
-            username = "lgzarturo"
+            username = System.getenv("GITHUB_USERNAME")
             password = System.getenv("GITHUB_TOKEN")
         }
 		url = uri("https://maven.pkg.github.com/lgzarturo/shared-utils")
@@ -51,7 +51,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-data-rest:${property("openApiVersion")}")
 	implementation("org.springdoc:springdoc-openapi-kotlin:${property("openApiVersion")}")
 	implementation("org.springdoc:springdoc-openapi-javadoc:${property("openApiVersion")}")
-	implementation("com.arthurolg:shared-utils:1.0.1")
+	implementation("com.arthurolg:shared-utils:1.0.3")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")
 	annotationProcessor("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")

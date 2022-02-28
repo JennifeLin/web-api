@@ -1,24 +1,22 @@
 package com.alg.boot.webapi.config
 
-import com.arthurolg.constants.AuthoritiesConstants
-import com.arthurolg.enums.Role
+import com.alg.boot.webapi.apps.security.users.service.CustomUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class SecurityConfiguration : WebSecurityConfigurerAdapter() {
+class SecurityConfiguration(private val customUserDetailsService: CustomUserDetailsService) : WebSecurityConfigurerAdapter() {
 
     @Bean
     fun passwordEncoder() : PasswordEncoder {
@@ -30,25 +28,18 @@ class SecurityConfiguration : WebSecurityConfigurerAdapter() {
             .disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.GET, "/api/**").permitAll()
+            .antMatchers("/api/auth/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .httpBasic()
     }
 
+    override fun configure(auth: AuthenticationManagerBuilder?) {
+        auth!!.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder())
+    }
+
     @Bean
-    override fun userDetailsService(): UserDetailsService {
-        val adminRole = AuthoritiesConstants.getSimpleName(Role.ROLE_ADMIN.name)
-        val admin = User.builder()
-            .username("admin")
-            .password(passwordEncoder().encode("password"))
-            .roles(adminRole)
-            .build()
-        val userRole = AuthoritiesConstants.getSimpleName(Role.ROLE_USER.name)
-        val user = User.builder()
-            .username("user")
-            .password(passwordEncoder().encode("password"))
-            .roles(userRole)
-            .build()
-        return InMemoryUserDetailsManager(admin, user)
+    override fun authenticationManagerBean(): AuthenticationManager {
+        return super.authenticationManagerBean()
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.core.env.Environment
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import java.net.InetAddress
 import java.net.UnknownHostException
 import java.util.*
@@ -86,6 +87,13 @@ class WebApiApplication(private val env: Environment) {
 	Config Server: 	{}
 ----------------------------------------------------------""",
 				configServerStatus
+			)
+			log.info(
+				"""
+----------------------------------------------------------
+	Generic password: 	{}
+----------------------------------------------------------""",
+				BCryptPasswordEncoder().encode("password")
 			)
 		}
 	}

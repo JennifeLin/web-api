@@ -16,7 +16,7 @@ class PostController(
 ) {
     @GetMapping
     fun getPosts(
-        @RequestParam(value = "page", defaultValue = Constants.PAGE_NUMBER, required = false) page: Int,
+        @RequestParam(value = "page", defaultValue = "0", required = false) page: Int,
         @RequestParam(value = "size", defaultValue = Constants.PAGE_SIZE, required = false) size: Int,
         @RequestParam(value = "sort", defaultValue = Constants.SORT_BY, required = false) sort: String,
         @RequestParam(value = "direction", defaultValue = Constants.SORT_DIRECTION, required = false) direction: String,

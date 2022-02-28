@@ -1,5 +1,7 @@
 package com.alg.boot.webapi.handlers.exceptions
 
+import com.arthurolg.exceptions.ErrorResponse
+import com.arthurolg.exceptions.FieldErrorResponse
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import org.slf4j.LoggerFactory
 import org.springframework.dao.DataIntegrityViolationException
@@ -33,13 +35,21 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
             val message: String = error.defaultMessage!!
             errors.add(FieldErrorResponse(field, message))
         }
-        val errorResponse = ErrorResponse(status.value(), ex.message, ex::class.simpleName, errors)
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(ex.message)
+            .exception(ex::class.simpleName)
+            .fieldErrorResponses(errors).build()
         return ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(ResponseStatusException::class)
     fun handleNotFound(exception: ResponseStatusException): ResponseEntity<ErrorResponse> {
-        val errorResponse = ErrorResponse(exception.status.value(), exception.message, exception::class.simpleName)
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(exception.status.value())
+            .message(exception.message)
+            .exception(exception::class.simpleName)
+            .build()
         return ResponseEntity(errorResponse, exception.status)
     }
 
@@ -50,36 +60,58 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
         if (message.contains("SQL", true)) {
             message = "Los datos enviados no se pueden procesar"
         }
-        val errorResponse = ErrorResponse(status.value(), message, webRequest.getDescription(false))
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(message)
+            .exception(webRequest.getDescription(false))
+            .build()
         return ResponseEntity(errorResponse, status)
     }
 
     @ExceptionHandler(MissingKotlinParameterException::class)
     fun handleMissingKotlinParameterException(exception: MissingKotlinParameterException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
         val status = HttpStatus.BAD_REQUEST
-        val errorResponse = ErrorResponse(status.value(), exception.message, webRequest.getDescription(false))
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(exception.message)
+            .exception(webRequest.getDescription(false))
+            .build()
         return ResponseEntity(errorResponse, status)
     }
 
     @ExceptionHandler(ResourceNotFoundException::class)
     fun handleResourceNotFoundException(exception: ResourceNotFoundException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
         val status = HttpStatus.NOT_FOUND
-        val errorResponse = ErrorResponse(status.value(), exception.message, webRequest.getDescription(false))
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(exception.message)
+            .exception(webRequest.getDescription(false))
+            .build()
         return ResponseEntity(errorResponse, status)
     }
 
     @ExceptionHandler(Exception::class)
     fun handleAnyException(exception: Exception, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
+        log.error("Exception error ", exception.message)
         val status = HttpStatus.INTERNAL_SERVER_ERROR
-        val errorResponse = ErrorResponse(status.value(), exception.message, webRequest.getDescription(false))
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(exception.message)
+            .exception(webRequest.getDescription(false))
+            .build()
         return ResponseEntity(errorResponse, status)
     }
 
     @ExceptionHandler(Throwable::class)
     fun handleThrowable(exception: Throwable): ResponseEntity<ErrorResponse> {
+        log.error("Throwable error ", exception.message)
         exception.printStackTrace()
         val status = HttpStatus.INTERNAL_SERVER_ERROR
-        val errorResponse = ErrorResponse(status.value(), status.toString(), exception::class.simpleName)
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(exception.message)
+            .exception(status.toString())
+            .build()
         return ResponseEntity(errorResponse, status)
     }
 
@@ -106,6 +138,11 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
         exception.getErrors().forEach { error ->
             errors.add(FieldErrorResponse(error.name, error.value))
         }
-        return ErrorResponse(status.value(), exception.message, description, errors)
+        return ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(exception.message)
+            .exception(description)
+            .fieldErrorResponses(errors)
+            .build()
     }
 }

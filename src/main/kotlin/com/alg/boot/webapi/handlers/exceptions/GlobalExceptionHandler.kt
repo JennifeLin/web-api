@@ -9,6 +9,7 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.AccessDeniedException
 import org.springframework.validation.FieldError
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -93,6 +94,7 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
     @ExceptionHandler(Exception::class)
     fun handleAnyException(exception: Exception, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
         log.error("Exception error ", exception.message)
+        exception.printStackTrace()
         val status = HttpStatus.INTERNAL_SERVER_ERROR
         val errorResponse = ErrorResponse.builder()
             .httpStatus(status.value())
@@ -111,6 +113,18 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
             .httpStatus(status.value())
             .message(exception.message)
             .exception(status.toString())
+            .build()
+        return ResponseEntity(errorResponse, status)
+    }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handleAccessDeniedException(exception: AccessDeniedException, webRequest: WebRequest): ResponseEntity<ErrorResponse> {
+        log.error("Exception error ", exception.message)
+        val status = HttpStatus.FORBIDDEN
+        val errorResponse = ErrorResponse.builder()
+            .httpStatus(status.value())
+            .message(exception.message)
+            .exception(webRequest.getDescription(false))
             .build()
         return ResponseEntity(errorResponse, status)
     }

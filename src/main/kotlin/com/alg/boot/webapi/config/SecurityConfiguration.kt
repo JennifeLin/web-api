@@ -23,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfiguration(
     private val authenticationEntryPointJWT: AuthenticationEntryPointJWT,
     private val customUserDetailsService: CustomUserDetailsService,
+    private val corsConfiguration: CorsConfiguration,
     private val tokenProviderJWT: TokenProviderJWT
     ) : WebSecurityConfigurerAdapter() {
 
@@ -37,7 +38,11 @@ class SecurityConfiguration(
     }
 
     override fun configure(http: HttpSecurity?) {
-        http!!.csrf()
+        http!!
+            .cors()
+            .configurationSource(corsConfiguration.corsConfigurationSource())
+            .and()
+            .csrf()
             .disable()
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPointJWT)

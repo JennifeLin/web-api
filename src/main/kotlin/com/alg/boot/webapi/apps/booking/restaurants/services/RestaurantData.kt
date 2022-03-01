@@ -6,8 +6,9 @@ import com.alg.boot.webapi.apps.booking.restaurants.data.RestaurantJson
 import com.alg.boot.webapi.handlers.exceptions.NotFoundException
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
-
+@Transactional
 @Service
 class RestaurantData(private val restaurantRepository: RestaurantRepository) : RestaurantService {
 

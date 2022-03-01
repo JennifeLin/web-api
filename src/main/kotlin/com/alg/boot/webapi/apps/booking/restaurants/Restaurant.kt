@@ -38,7 +38,7 @@ class Restaurant(
     @JoinColumn(name = "RESTAURANT_ID")
     var boards: MutableList<Board>? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "RESTAURANT_ID")
     var turns: MutableList<Turn>? = null,

@@ -1,6 +1,5 @@
 package com.alg.boot.webapi.apps.cms.posts.service
 
-import com.alg.boot.webapi.apps.cms.posts.CategoryRepository
 import com.alg.boot.webapi.apps.cms.posts.Post
 import com.alg.boot.webapi.apps.cms.posts.PostRepository
 import com.alg.boot.webapi.apps.cms.posts.dto.*
@@ -12,12 +11,13 @@ import org.modelmapper.ModelMapper
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors
 
+@Transactional
 @Service
 class PostData(
     private val modelMapper: ModelMapper,
-    private val categoryRepository: CategoryRepository,
     private val categoryData: CategoryData,
     private val postRepository: PostRepository,
     private val siteRepository: SiteRepository

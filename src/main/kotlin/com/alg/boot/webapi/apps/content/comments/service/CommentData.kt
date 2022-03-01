@@ -9,8 +9,10 @@ import com.alg.boot.webapi.apps.content.comments.dto.CommentResponseJson
 import com.alg.boot.webapi.handlers.exceptions.BadRequestException
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.stream.Collectors
 
+@Transactional
 @Service
 class CommentData(
     val commentRepository: CommentRepository,

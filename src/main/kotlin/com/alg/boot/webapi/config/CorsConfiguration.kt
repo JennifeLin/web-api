@@ -2,21 +2,27 @@ package com.alg.boot.webapi.config
 
 import com.arthurolg.constants.Constants
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
+import org.springframework.stereotype.Component
+import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import org.springframework.web.filter.CorsFilter
 
-@Configuration
+
+@Component
 class CorsConfiguration {
+
+    companion object {
+        const val MAX_AGE_SECS: Long = 3_600
+    }
+
     @Bean
-    fun corsFilter(): CorsFilter {
+    fun corsConfigurationSource(): CorsConfigurationSource? {
+        val configuration = org.springframework.web.cors.CorsConfiguration()
+        configuration.allowedOrigins = listOf(Constants.ALL)
+        configuration.allowedMethods = listOf(Constants.ALL)
+        configuration.allowedHeaders = listOf(Constants.ALL)
+        configuration.maxAge = MAX_AGE_SECS
         val source = UrlBasedCorsConfigurationSource()
-        val config = org.springframework.web.cors.CorsConfiguration()
-        config.allowCredentials = true
-        config.allowedOriginPatterns = listOf("http://localhost:3000", "https://*.webapi.com")
-        config.allowedHeaders = listOf(Constants.ALL)
-        config.allowedMethods = listOf(Constants.ALL)
-        source.registerCorsConfiguration("/api${Constants.DEFAULT_ALL_PATH_PATTERN}", config)
-        return CorsFilter(source)
+        source.registerCorsConfiguration(Constants.DEFAULT_ALL_PATH_PATTERN, configuration)
+        return source
     }
 }

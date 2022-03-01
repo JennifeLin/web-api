@@ -27,7 +27,7 @@ class User(
     @Column(name = "ENABLED")
     var isEnabled: Boolean? = null,
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
+    @ManyToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinTable(name = "USERS_ROLES",
         joinColumns = [JoinColumn(name = "USER_ID")],
         inverseJoinColumns = [JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")])

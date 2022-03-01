@@ -12,7 +12,9 @@ import com.alg.boot.webapi.handlers.exceptions.ServerErrorException
 import org.modelmapper.ModelMapper
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Service
 class ReservationData(
     private val reservationRepository: ReservationRepository,

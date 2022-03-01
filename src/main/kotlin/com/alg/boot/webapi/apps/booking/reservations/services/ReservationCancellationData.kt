@@ -5,7 +5,9 @@ import com.alg.boot.webapi.handlers.exceptions.NotFoundException
 import com.alg.boot.webapi.handlers.exceptions.ServerErrorException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Service
 class ReservationCancellationData(private val reservationRepository: ReservationRepository) :
     ReservationCancellationService {

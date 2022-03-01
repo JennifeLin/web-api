@@ -1,5 +1,6 @@
 package com.alg.boot.webapi.apps.security.controllers
 
+import com.alg.boot.webapi.apps.security.jwt.AuthenticationResponse
 import com.alg.boot.webapi.apps.security.users.dto.UserLoginRequest
 import com.alg.boot.webapi.apps.security.users.dto.UserRegisterRequest
 import com.alg.boot.webapi.apps.security.users.service.UserService
@@ -15,7 +16,7 @@ import javax.validation.Valid
 @RequestMapping("/api/auth")
 class AuthController(private val userService: UserService) {
     @PostMapping("/login")
-    fun login(@Valid @RequestBody login: UserLoginRequest): GeneralResponse<String> =
+    fun login(@Valid @RequestBody login: UserLoginRequest): GeneralResponse<AuthenticationResponse> =
         GeneralResponse(HttpStatus.OK.value(), userService.authenticate(login))
 
     @PostMapping("/register")

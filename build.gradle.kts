@@ -54,6 +54,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-javadoc:${property("openApiVersion")}")
 	implementation("com.arthurolg:shared-utils:1.0.6")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")
 	annotationProcessor("org.mapstruct:mapstruct-processor:${property("mapstructVersion")}")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

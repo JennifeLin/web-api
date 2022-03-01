@@ -1,5 +1,7 @@
 package com.alg.boot.webapi.apps.security.users.service
 
+import com.alg.boot.webapi.apps.security.jwt.AuthenticationResponse
+import com.alg.boot.webapi.apps.security.jwt.TokenProviderJWT
 import com.alg.boot.webapi.apps.security.roles.RoleRepository
 import com.alg.boot.webapi.apps.security.users.User
 import com.alg.boot.webapi.apps.security.users.UserRepository
@@ -23,15 +25,19 @@ class UserData(
     private val modelMapper: ModelMapper,
     private val passwordEncoder: PasswordEncoder,
     private val roleRepository: RoleRepository,
+    private val tokenProviderJWT: TokenProviderJWT,
     private val userRepository: UserRepository
 ) : UserService {
 
-    override fun authenticate(login: UserLoginRequest) : String {
+    override fun authenticate(login: UserLoginRequest) : AuthenticationResponse {
         val authentication = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(login.username, login.password)
         )
         SecurityContextHolder.getContext().authentication = authentication
-        return authentication.name
+        val token = tokenProviderJWT.generateToken(authentication)
+        val authenticationJWT = AuthenticationResponse()
+        authenticationJWT.token = token
+        return authenticationJWT
     }
 
     @Transactional

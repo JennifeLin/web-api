@@ -1,22 +1,35 @@
 package com.alg.boot.webapi.config
 
+import com.alg.boot.webapi.apps.security.jwt.AuthenticationEntryPointJWT
+import com.alg.boot.webapi.apps.security.jwt.AuthenticationFilterJWT
+import com.alg.boot.webapi.apps.security.jwt.TokenProviderJWT
 import com.alg.boot.webapi.apps.security.users.service.CustomUserDetailsService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class SecurityConfiguration(private val customUserDetailsService: CustomUserDetailsService) : WebSecurityConfigurerAdapter() {
+class SecurityConfiguration(
+    private val authenticationEntryPointJWT: AuthenticationEntryPointJWT,
+    private val customUserDetailsService: CustomUserDetailsService,
+    private val tokenProviderJWT: TokenProviderJWT
+    ) : WebSecurityConfigurerAdapter() {
+
+    @Bean
+    fun authenticationFilterJWT(): AuthenticationFilterJWT {
+        return AuthenticationFilterJWT(customUserDetailsService, tokenProviderJWT)
+    }
 
     @Bean
     fun passwordEncoder() : PasswordEncoder {
@@ -26,12 +39,17 @@ class SecurityConfiguration(private val customUserDetailsService: CustomUserDeta
     override fun configure(http: HttpSecurity?) {
         http!!.csrf()
             .disable()
-            .authorizeRequests()
-            .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-            .antMatchers("/api/auth/**").permitAll()
-            .anyRequest().authenticated()
+            .exceptionHandling()
+            .authenticationEntryPoint(authenticationEntryPointJWT)
             .and()
-            .httpBasic()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .authorizeRequests()
+            .antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/swagger-ui.html").permitAll()
+            .anyRequest().authenticated()
+        http.addFilterBefore(authenticationFilterJWT(), UsernamePasswordAuthenticationFilter::class.java)
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {

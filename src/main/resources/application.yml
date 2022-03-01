@@ -41,5 +41,9 @@ logging:
   level:
     org.hibernate: DEBUG
 
+jwt:
+  secret: cl07ioy0v0000zo88yshva0kj
+  expiration-ms: 86400000
+
 server:
   port: 8080

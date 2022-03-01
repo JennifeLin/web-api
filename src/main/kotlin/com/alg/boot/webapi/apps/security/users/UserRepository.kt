@@ -6,6 +6,8 @@ import java.util.*
 
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 interface UserRepository : JpaRepository<User, Long> {
+    fun findByUsername(username: String): Optional<User>
     fun findByUsernameAndIsEnabledIsTrue(username: String): Optional<User>
     fun existsByUsernameAndIsEnabledIsTrue(username: String): Boolean
+    fun existsByUsername(username: String): Boolean
 }

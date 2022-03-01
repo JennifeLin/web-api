@@ -1,6 +1,7 @@
 package com.alg.boot.webapi.apps.security.controllers
 
 import com.alg.boot.webapi.apps.security.users.dto.UserLoginRequest
+import com.alg.boot.webapi.apps.security.users.dto.UserRegisterRequest
 import com.alg.boot.webapi.apps.security.users.service.UserService
 import com.alg.boot.webapi.handlers.responses.GeneralResponse
 import org.springframework.http.HttpStatus
@@ -17,4 +18,7 @@ class AuthController(private val userService: UserService) {
     fun login(@Valid @RequestBody login: UserLoginRequest): GeneralResponse<String> =
         GeneralResponse(HttpStatus.OK.value(), userService.authenticate(login))
 
+    @PostMapping("/register")
+    fun register(@Valid @RequestBody user: UserRegisterRequest): GeneralResponse<String> =
+        GeneralResponse(HttpStatus.OK.value(), userService.register(user))
 }

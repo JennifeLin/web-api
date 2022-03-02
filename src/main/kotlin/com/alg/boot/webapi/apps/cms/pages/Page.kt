@@ -2,7 +2,7 @@ package com.alg.boot.webapi.apps.cms.pages
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.arthurolg.enums.Status
-import java.util.*
+import com.arthurolg.utils.StringUtil
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -31,6 +31,6 @@ class Page(
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {
-        this.slug = UUID.randomUUID().toString()
+        this.slug = StringUtil.slugURI(this.title)
     }
 }

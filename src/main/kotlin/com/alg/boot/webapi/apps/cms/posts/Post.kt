@@ -5,11 +5,11 @@ import com.alg.boot.webapi.apps.cms.sites.Site
 import com.alg.boot.webapi.apps.content.comments.Comment
 import com.alg.boot.webapi.apps.shared.AuditableEntity
 import com.arthurolg.enums.Status
+import com.arthurolg.utils.StringUtil
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.URL
 import java.time.LocalDate
-import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -75,6 +75,6 @@ class Post(
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {
-        this.slug = UUID.randomUUID().toString()
+        this.slug = StringUtil.slugURI(this.title)
     }
 }

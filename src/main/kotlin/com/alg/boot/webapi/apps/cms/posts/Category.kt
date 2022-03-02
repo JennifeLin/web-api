@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.cms.posts
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import java.util.*
+import com.arthurolg.utils.StringUtil
 import javax.persistence.*
 
 @Entity
@@ -23,6 +23,6 @@ class Category(
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {
-        this.slug = UUID.randomUUID().toString()
+        this.slug = StringUtil.slugURI(this.name)
     }
 }

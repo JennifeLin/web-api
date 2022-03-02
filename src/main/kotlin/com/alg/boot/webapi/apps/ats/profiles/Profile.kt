@@ -2,6 +2,7 @@ package com.alg.boot.webapi.apps.ats.profiles
 
 import com.alg.boot.webapi.apps.ats.companies.Location
 import com.alg.boot.webapi.apps.shared.AuditableEntity
+import com.arthurolg.utils.StringUtil
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import org.hibernate.validator.constraints.URL
@@ -77,6 +78,7 @@ class Profile(
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {
-        this.slug = UUID.randomUUID().toString()
+        val fullText = "${this.firstName} ${this.lastName?:""}".trim()
+        this.slug = StringUtil.slugURI(fullText)
     }
 }

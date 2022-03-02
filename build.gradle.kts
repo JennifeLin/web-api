@@ -52,7 +52,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-data-rest:${property("openApiVersion")}")
 	implementation("org.springdoc:springdoc-openapi-kotlin:${property("openApiVersion")}")
 	implementation("org.springdoc:springdoc-openapi-javadoc:${property("openApiVersion")}")
-	implementation("com.arthurolg:shared-utils:1.0.6")
+	implementation("com.arthurolg:shared-utils:1.0.9")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("org.mapstruct:mapstruct:${property("mapstructVersion")}")

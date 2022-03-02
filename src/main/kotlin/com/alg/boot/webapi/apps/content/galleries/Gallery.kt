@@ -1,7 +1,7 @@
 package com.alg.boot.webapi.apps.content.galleries
 
 import com.alg.boot.webapi.apps.shared.AuditableEntity
-import java.util.*
+import com.arthurolg.utils.StringUtil
 import javax.persistence.*
 import javax.validation.constraints.NotBlank
 
@@ -28,6 +28,6 @@ class Gallery(
 ): AuditableEntity<String>() {
     @PrePersist
     fun prePersistData() {
-        this.slug = UUID.randomUUID().toString()
+        this.slug = StringUtil.slugURI(this.title)
     }
 }

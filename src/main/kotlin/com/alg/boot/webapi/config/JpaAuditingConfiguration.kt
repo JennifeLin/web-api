@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.auditing.DateTimeProvider
 import org.springframework.data.domain.AuditorAware
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing
+import org.springframework.security.core.context.SecurityContextHolder
 import java.time.OffsetDateTime
 import java.util.*
 
@@ -19,7 +20,7 @@ class JpaAuditingConfiguration {
 
     @Bean
     fun auditorProvider(): AuditorAware<String> {
-        // SecurityContextHolder.getContext().authentication.name
-        return AuditorAware { Optional.of("Anonymous") }
+        val username = SecurityContextHolder.getContext()?.authentication?.name?:"Anonymous"
+        return AuditorAware { Optional.of(username) }
     }
 }

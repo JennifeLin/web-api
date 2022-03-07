@@ -6,7 +6,7 @@ spring:
   application:
     name: webapi
   datasource:
-    url: jdbc:mysql://localhost:3306/webapi_db?allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/webapi_db?allowPublicKeyRetrieval=true&useSSL=false&useUnicode=true&useJDBCCompilantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Cancun
     username: dev
     password: MZtnjPMNp#12
     driverClassName: com.mysql.cj.jdbc.Driver
